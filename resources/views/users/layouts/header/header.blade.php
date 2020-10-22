@@ -26,7 +26,9 @@
 	<link rel="stylesheet" href="{{asset('vendor/owl/css/owl.carousel.min.css')}}">
 	<link rel="stylesheet" href="{{asset('vendor/owl/css/owl.theme.default.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/owl/css/animate.css')}}">
-	<!-- Slider Revolution CSS Files -->
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{asset('vendor/fontawesome/fontawesome.min.css')}}"/>
+    <!-- Slider Revolution CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/settings.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/layers.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/navigation.css')}}">
@@ -91,18 +93,12 @@
 									</a>
                                 </li>
                                 <li class="menu-item">
-									<a href="{{ route('cart.tracking') }}">
-									Wish list
+									<a href="#">
+									Any
 									</a>
 								</li>
-								<li class="menu-item">
-									<a href="{{ route('cart.tracking') }}">
-									Order tracking
-									</a>
-                                </li>
                                 <li class="menu-item">
                                     @if (Auth::user())
-                                        <i class="fas fa-angle-down"></i>
                                         <a href="{{route('shop')}}" >
                                             {{ Auth::user()->name }}
                                         </a>
@@ -376,13 +372,8 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('cart.tracking') }}">
-                            Wish list
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('cart.tracking') }}">
-                            Order tracking
+                            <a href="#">
+                           Any
                             </a>
                         </li>
                         <li class="menu-item">

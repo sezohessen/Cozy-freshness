@@ -1,16 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\BillingOrder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use App\Category;
-use App\Comment;
 use App\Order;
 use App\Order_product;
 use App\Product;
-use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -163,11 +160,9 @@ class CartController extends Controller
     {
         $this->validate($request,[
             'fullName'      => 'required',
-            'governorate'   => 'required|max:40',
-            'city'          => 'required|max:40',
-            'address'       => 'required|max:100',
+            'location'   => 'required|max:60',
             'phone'         => 'required|max:20',
-            'paymentMethod' => 'required'
+            'time' => 'required'
         ]);
         $categories = $this->categories;
         if(session('cart')){
@@ -175,16 +170,12 @@ class CartController extends Controller
             $order = Order::create([
                 'user_id'           =>  Auth::user()->id,
                 'total'             =>  $request->total,
-                'shipping'          =>  0,
-                'subtotal'          =>  $request->total,
-                'ip'                =>  $request->ip(),
-                'status'            =>  'withApproval',
+                'status'            =>  'pending',
                 'fullName'          =>  $request->fullName,
-                'governorate'       =>  $request->governorate,
-                'city'              =>  $request->city,
-                'address'           =>  $request->address,
                 'phone'             =>  $request->phone,
-                'paymentMethod'     =>  $request->paymentMethod
+                'location'          =>  $request->location,
+                'time'              =>  $request->time,
+                'pending'           =>  Carbon::now()->toDateTimeString(),
             ]);
             if($request->has('moreInfo')){
                 $order->moreInfo = $request->moreInfo;
@@ -192,8 +183,6 @@ class CartController extends Controller
             }
             foreach(session('cart') as $id => $cart_info){
                 $product            = Product::find($id);
-                $product->inStock   -= $cart_info['quantity'];
-                $product->save();
                 $orderProduct   = Order_product::create([
                     'product_id'    => $id,
                     'order_id'      => $order->id,
@@ -207,18 +196,8 @@ class CartController extends Controller
             $title      = 'Novas | Orderd';
             return view('users.carts.thanks',compact('title','order','categories'));
         }else{
-            session()->flash('not_available', 'Sorry product not available');
-            return redirect()->route('shop.cart');
+            return redirect()->route('shop');
         }
 
-    }
-    public function trackOrder()
-    {
-        $title      = 'Novas | Tracking';
-        $categories = $this->categories;
-        $orders         = Order::where('user_id',Auth::user()->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
-        return view('users.carts.tracking',compact('title','orders','categories'));
     }
 }

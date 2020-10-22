@@ -1786,8 +1786,8 @@ textarea:-moz-placeholder {
         -o-transition: all 0.3s linear;
         -ms-transition: all 0.3s linear;
         min-width: 100%;
-        min-height: 300px;
-        max-height: 300px;
+        min-height: 250px;
+        max-height: 250px;
     }
       .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .wp-post-image .image-secondary {
         position: absolute;
@@ -3184,10 +3184,11 @@ textarea:-moz-placeholder {
     -ms-align-items: center; }
     .coming-soon-page .page-detail .page-inner {
       text-align: center;
-      width: 100%; }
-      .coming-soon-page .page-detail .page-inner h1 {
-        font-size: 60px;
-        padding-bottom: 46px; }
+      width: 100%;
+        margin: 70px 0;
+    }
+      .coming-soon-page .page-detail .page-inner h4 {
+        margin: 20px 0; }
       .coming-soon-page .page-detail .page-inner #clock {
         justify-content: center;
         -moz-justify-content: center;
@@ -4476,7 +4477,8 @@ textarea:-moz-placeholder {
     text-align: right; }
   .checkout-section .woocommerce .woocommerce-checkout-review-order table tfoot td {
     width: 93%;
-    border-bottom: 1px solid #e5e5e5; }
+    border-bottom: 1px solid #e5e5e5;
+ }
     .checkout-section .woocommerce .woocommerce-checkout-review-order table tfoot td .woocommerce-Price-currencySymbol {
       margin-right: -4px; }
     .checkout-section .woocommerce .woocommerce-checkout-review-order table tfoot td .review-total-title {
@@ -6817,7 +6819,8 @@ textarea:-moz-placeholder {
 
   /* Coming Soon Page*/
   .coming-soon-page .page-detail .page-inner h1 {
-    font-size: 50px; }
+    font-size: 50px;
+ }
 
   .coming-soon-page .page-detail .page-inner #clock .time {
     font-size: 45px; }
@@ -7631,8 +7634,10 @@ textarea:-moz-placeholder {
 
   .coming-soon-page .page-detail .page-inner h1 {
     font-size: 45px;
-    padding-bottom: 20px; }
-
+    padding-bottom: 10px; }
+    .coming-soon-page .page-detail .page-inner img{
+        margin:  10px 0;
+    }
   .coming-soon-page .page-detail .page-inner #clock .time {
     font-size: 30px; }
 

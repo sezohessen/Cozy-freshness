@@ -20,19 +20,6 @@
 			<div class="woocommerce">
 				<div class="container">
 					<div class="entry-content">
-						<div class="woocommerce-info">
-							Have a coupon?
-							<a class="showcoupon">Click here to enter your code</a>
-						</div>
-						<form class="checkout_coupon" method="post">
-							<p class="form-row-first">
-								<input type="text" name="coupon_code" class="input-text" placeholder="Coupon code" id="coupon_code" value="">
-							</p>
-							<p class="form-row-last">
-								<input type="submit" class="button au-btn btn-small" name="apply_coupon" value="Apply Coupon">
-								<span class="arrow-right"><i class="zmdi zmdi-arrow-right"></i></span>
-                            </p>
-						</form>
 						<div class="row">
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 								<div class="woocommerce-checkout-review-order">
@@ -76,18 +63,6 @@
 											<tr>
 												<td>
 													<ul>
-														<li class="cart-subtotal">
-															<span class="review-total-title">Subtotal</span>
-															<p>
-																<span class="woocommerce-Price-amount amount">
-																	<span class="woocommerce-Price-currencySymbol">${{ $total }}</span>
-																</span>
-															</p>
-														</li>
-														<li class="shipping">
-															<span class="review-total-title">Shipping</span>
-															<p>there are no shitdping methods available. please double check your address, or contact us if you need any help.</p>
-														</li>
 														<li class="order-total">
 															<span class="review-total-title">Total</span>
 															<p>
@@ -107,35 +82,22 @@
 								<form action="{{ route('cart.placeOrder') }}" class="checkout woocommerce-checkout" method="POST">
                                     @csrf
 									<div class="woocommerce-billing-fields">
-										<h2>Billing details</h2>
+										<h2>Delivery details</h2>
 										<div class="woocommerce-billing-fields__field-wrapper">
 											<p class="form-row-first">
-                                                <input type="text" name="fullName" class="input-text " value="{{ old('fullName') }}" id="billing_first_name" placeholder="Full Name *"  required>
+                                                <input type="text" class="input-text " value="{{ old('fullName') }}"  name="fullName"  id="billing_first_name" placeholder="Full Name *"  >
                                                 @if ($errors->has('fullName'))
                                                     <small class="badge badge-danger">{{$errors->first('fullName')}}</small>
                                                 @endif
                                             </p>
                                             <p class="form-row-wide">
-                                                <input type="text" class="input-text "  placeholder="Governorate *" value="{{ old('governorate') }}" name="governorate" id="billing_state" required>
-                                                @if ($errors->has('governorate'))
-                                                    <small class="badge badge-danger">{{$errors->first('governorate')}}</small>
-                                                @endif
-                                            </p>
-                                            <p class="form-row-wide">
-                                                <input type="text" class="input-text " value="{{ old('city') }}" name="city" id="city" placeholder="Town/City *" required>
-                                                @if ($errors->has('city'))
-                                                    <small class="badge badge-danger">{{$errors->first('city')}}</small>
-                                                @endif
-                                            </p>
-                                            <p class="form-row-wide">
-                                            	<label for="billing_address_1">Address <abbr class="required" title="required">*</abbr></label>
-                                                <input type="text" class="input-text "value="{{ old('address') }}" name="address" id="billing_address_1" placeholder="Street address" required>
-                                                @if ($errors->has('address'))
-                                                    <small class="badge badge-danger">{{$errors->first('address')}}</small>
+                                                <input type="text" class="input-text "  value="{{ old('location') }}" name="location" id="billing_location" placeholder="Location *" >
+                                                @if ($errors->has('location'))
+                                                    <small class="badge badge-danger">{{$errors->first('location')}}</small>
                                                 @endif
                                             </p>
                                             <p class="form-row-first">
-                                                <input type="tel" class="input-text " value="{{ old('phone') }}" name="phone" id="billing_phone" placeholder="Phone *" required>
+                                                <input type="tel" class="input-text " value="{{ old('phone') }}" name="phone" id="billing_phone" placeholder="Phone *" >
                                                 @if ($errors->has('phone'))
                                                     <small class="badge badge-danger">{{$errors->first('phone')}}</small>
                                                 @endif
@@ -157,19 +119,19 @@
                                         <div class="woocommerce-checkout-payment">
                                             <ul class="payment_methods">
                                                 <li class="wc_payment_method">
-                                                    <input type="radio" id="payment_method_bacs" class="input-radio" name="paymentMethod"  value="bank">
-                                                    <label for="payment_method_bacs">Direct bank transfer</label>
+                                                    <input type="radio" id="now" class="input-radio" name="time" checked value="now" required>
+                                                    <label for="now">Now</label>
                                                 </li>
                                                 <li class="wc_payment_method">
-                                                    <input type="radio" name="paymentMethod" id="payment_method_cheque" class="input-radio" value="payment">
-                                                    <label for="payment_method_cheque">Check payments</label>
+                                                    <input type="radio" name="time" id="afterOneHour" class="input-radio" value="afterOneHour" required>
+                                                    <label for="afterOneHour">After 1 hour</label>
                                                 </li>
                                                 <li class="wc_payment_method">
-                                                    <input type="radio" name="paymentMethod" id="payment_method_cod" class="input-radio" checked value="cash" >
-                                                    <label for="payment_method_cod">Cash on delivery</label>
+                                                    <input type="radio" name="time" id="afterTwoHour" class="input-radio" value="afterTwoHour" required>
+                                                    <label for="afterTwoHour">After 2 hour</label>
                                                 </li>
-                                                @if ($errors->has('paymentMethod'))
-                                                    <small class="badge badge-danger">{{$errors->first('paymentMethod')}}</small>
+                                                @if ($errors->has('time'))
+                                                    <small class="badge badge-danger">{{$errors->first('time')}}</small>
                                                 @endif
                                             </ul>
                                             <div class="place-order">

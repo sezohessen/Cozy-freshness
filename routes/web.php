@@ -82,12 +82,10 @@ Route::group(['middleware' => 'admin' ], function () {
     /* Website */
     Route::get('main/shop/check-out', 'CartController@checkOut')->name('cart.checkOut');
     Route::post('main/shop/check-out/placeOrder', 'CartController@placeOrder')->name('cart.placeOrder');
-    Route::get('main/shop/trackOrder', 'CartController@trackOrder')->name('cart.tracking');
 });
 Route::group(['middleware' => 'auth' ], function () {
     /* Website */
     Route::get('main/shop/check-out', 'CartController@checkOut')->name('cart.checkOut');
     Route::post('main/shop/check-out/placeOrder', 'CartController@placeOrder')->name('cart.placeOrder');
-    Route::get('main/shop/trackOrder', 'CartController@trackOrder')->name('cart.tracking');
 });
 

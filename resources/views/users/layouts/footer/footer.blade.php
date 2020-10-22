@@ -109,6 +109,7 @@
 <!-- Form -->
 <script src="{{asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{asset('js/config-contact.js')}}"></script>
+<script src="{{asset('js/fontawesome.min.js')}}"></script>
 <!-- Main Js -->
 <script src="{{asset('js/custom.js')}}"></script>
 </body>
