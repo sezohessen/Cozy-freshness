@@ -23,7 +23,6 @@ class OrderController extends Controller
         //Recents orders
         $users              = User::all();
         $categories         = Category::all();
-        $comments           = Comment::all();
         $products           = Product::all();
         $pending            = Order::where('status','withApproval')
         ->orderBy('created_at','desc')
@@ -55,7 +54,7 @@ class OrderController extends Controller
             ->get();
         }
         return view('admin.orders.index',compact('categories','users','products',
-        'orders','comments','pending','shipped','deliverd','canceled','status'));
+        'orders','pending','shipped','deliverd','canceled','status'));
     }
     public function shipped($id)
     {

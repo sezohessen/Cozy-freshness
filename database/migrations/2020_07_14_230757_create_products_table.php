@@ -17,15 +17,11 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('active')->default(1);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('category_id');
-            $table->string('slug');
             $table->integer('quantity');
             $table->decimal('price',10,2);
             $table->integer('discount')->default(0);
-            $table->integer('weight')->nullable();
-            $table->integer('inStock')->default(0);
-            $table->integer('availability')->default(1);
             $table->timestamps();
         });
     }

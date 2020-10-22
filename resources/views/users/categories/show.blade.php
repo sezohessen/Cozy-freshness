@@ -57,26 +57,6 @@
 										</button>
 									</form>
 								</div>
-								<!-- Filter -->
-								<div class="widget_price_filter">
-									<h3 class="widget-title">Filter By Price</h3>
-									<form method="POST">
-	                                    <div class="price_slider_wrapper">
-	                                        <div class="price_slider ui-slider ui-slider-horizontal">
-	                                            <div id="slider-margin"></div>
-	                                        </div>
-	                                        <div class="price_slider_amount">
-	                                            <div class="price_label">
-	                                                Price:
-	                                                <span class="from" id="value-lower">1</span>
-	                                                -
-	                                                <span class="to" id="value-upper">1000</span>
-	                                            </div>
-	                                            <button type="submit" class="button au-btn-black btn-small">Filter</button>
-	                                        </div>
-	                                    </div>
-	                                </form>
-								</div>
 								<!-- Categories -->
 								<div class="widget widget_product_categories">
 									<h3 class="widget-title">Categories</h3>
@@ -110,8 +90,6 @@
                                     <form class="woocommerce-ordering" method="get">
                                         <input type="text" name="search" hidden value="{{app('request')->input('search')}}">
 										<select name="order" class="orderby" id="SaveSelectionOrder">
-											<option value="popularity">Sort by popularity</option>
-											<option value="rating">Sort by average rating</option>
                                             <option value="newest" selected="selected">Sort by newness</option>
 											<option value="asc">Sort by price: low to high</option>
                                             <option value="desc">Sort by price: high to low</option>
@@ -122,89 +100,58 @@
 								<div class="row">
                                     @foreach ($products as $product)
                                     <!-- Product -->
-                                    <div class="col-4">
+                                    <div class="col-md-3">
                                         <div class="product type-product">
                                             <div class="woocommerce-LoopProduct-link">
                                                 <div class="product-image">
-                                                    <a href="{{route('shop.product',['id' => $product->id ,'slug' => str_slug($product->name)])}}" class="wp-post-image">
+                                                    <div class="wp-post-image">
                                                         <img class="image-cover" src="{{asset('uploads/products/'.$product->pictures[0]->picture)}}" alt="{{$product->name}}">
                                                         @if (isset($product->pictures[1]->picture))
                                                             <img class="image-secondary" src="{{asset('uploads/products/'.$product->pictures[1]->picture)}}" alt="{{$product->name}}">
                                                         @endif
-                                                    </a>
-                                                    @if ($product->inStock==0||$product->inStock==NULL)
-                                                        <a href="#" class="onsale">
-                                                            Sale
-                                                        </a>
-                                                    @endif
-                                                    @if ($product->discount!=0||$product->discount!=NULL)
-                                                        <a href="#" class="onnew" style="top: 50px">{{$product->discount}}%</a>
-                                                    @endif
-                                                    @if ($product->inStock!=0||$product->inStock!=NULL)
-                                                        <form method="POST" action="{{ route('cart.add',['id' => $product->id]) }}">
-                                                            @csrf
-                                                            <input type="number" name="quantity" id="quantity" value="1" hidden>
-                                                            <div class="yith-wcwl-add-button show">
-                                                                <button  class="add_to_wishlist btn btn-defaul">
-                                                                    <i class="zmdi zmdi-favorite-outline"></i>
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    @endif
-                                                    <div class="button add_to_cart_button">
-                                                        <a href="#">
-                                                            <img src="{{asset('images/icons/shopping-cart-black-icon.png')}}" alt="cart">
-                                                        </a>
                                                     </div>
-                                                    <h5 class="woocommerce-loop-product__title">
-                                                        <a href="{{route('shop.product',['id' => $product->id ,'slug' => str_slug($product->name)])}}">
-                                                            {{$product->name}}
-                                                        </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                        @if ($product->discount!=0||$product->discount!=NULL)
-                                                            <del>
-                                                                <span class="woocommerce-Price-amount amount">
-                                                                    <span class="woocommerce-Price-currencySymbol">$</span>
-                                                                    {{$product->price}}
-                                                                </span>
-                                                            </del>
-                                                            <ins>
-                                                                <span class="woocommerce-Price-amount amount">
-                                                                    <span class="woocommerce-Price-currencySymbol">$</span>
-                                                                    {{$product->price - (($product->price * $product->discount)/100)}}
-                                                                </span>
-                                                            </ins>
-                                                        @else
-                                                            <ins>
-                                                                <span class="woocommerce-Price-amount amount">
-                                                                    <span class="woocommerce-Price-currencySymbol">$</span>
-                                                                    {{$product->price}}
-                                                                </span>
-                                                            </ins>
-                                                        @endif
-                                                        {{-- Select Depend on Product id --}}
-
-                                                        <?php
-                                                            $avr_star       = App\Comment::where('product_id',$product->id)
-                                                            ->selectRaw('SUM(rate)/COUNT(user_id) AS avg_rating')
-                                                            ->first()
-                                                            ->avg_rating;
-                                                            $product_star = round($avr_star);
-                                                        ?>
-                                                        {{-- Select Depend on Product id --}}
-                                                        @if ($product_star!=0)
-                                                            <div class="shop-star-rating">
-                                                                @for ($i = 1; $i <=  5; $i++)
-                                                                    @if ($product_star>=$i)
-                                                                        <i class="zmdi zmdi-star"></i>
-                                                                    @else
-                                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                                    @endif
-                                                                @endfor
-                                                            </div>
-                                                        @endif
-                                                    </span>
+                                                    @if ($product->discount!=0||$product->discount!=NULL)
+                                                        <a href="#" class="onnew">{{$product->discount}}%</a>
+                                                    @endif
+                                                    <div class="card-body">
+                                                        <p class="woocommerce-loop-product__title">
+                                                            <strong>
+                                                                {{$product->name}}
+                                                            </strong>
+                                                            <br>
+                                                            {{$product->description}}
+                                                        </p>
+                                                        <span class="price">
+                                                            @if ($product->discount!=0||$product->discount!=NULL)
+                                                                <ins>
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
+                                                                        {{$product->price - (($product->price * $product->discount)/100)}}
+                                                                    </span>
+                                                                </ins>
+                                                                <del>
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
+                                                                        {{$product->price}}
+                                                                    </span>
+                                                                </del>
+                                                            @else
+                                                                <ins>
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
+                                                                        {{$product->price}}
+                                                                    </span>
+                                                                </ins>
+                                                            @endif
+                                                        </span>
+                                                        <div class="button add_to_cart_button">
+                                                            <form method="POST" action="{{ route('cart.add',['id' => $product->id]) }}">
+                                                                @csrf
+                                                                <input type="number" name="quantity" id="quantity" value="1" hidden>
+                                                                <button type="submit" class="btn btn-dark">Add to Cart</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

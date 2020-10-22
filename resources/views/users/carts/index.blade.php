@@ -103,17 +103,19 @@
 											</span>
 										</td>
 										<td class="product-quantity" data-title="Quantity">
-											<div class="quantity form-group">
+											<div class="quantity form-group" style="width:60px">
                                                 <form action="{{ route('cart.update',['id'=>$id]) }}" method="POST">
                                                     @csrf
                                                     <select class="custom-select mr-sm-2" onchange="this.form.submit()"
                                                     name="quantity"  style="cursor: pointer" >
-                                                        @for ($i = 1; $i <= $product->inStock; $i++)
-                                                            @if ($cart_info['quantity']==$i)
-                                                                <option value="{{ $i }}" selected>{{ $i }}</option>
+
+                                                        @for ($i = 1; $i <= 10; $i++)
+                                                            @if ($i == $cart_info['quantity'])
+                                                              <option value="{{ $cart_info['quantity'] }}" selected>{{ $cart_info['quantity'] }}</option>
                                                             @else
-                                                                <option value="{{ $i }}">{{ $i }}</option>
+                                                              <option value="{{ $i }}">{{ $i }}</option>
                                                             @endif
+
                                                         @endfor
                                                     </select>
                                                 </form>
@@ -130,11 +132,7 @@
 									<tr>
 										<td colspan="6" class="actions">
 											<div class="coupon">
-												<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code">
-												<div>
-													<input type="submit" class="button au-btn btn-small" name="apply_coupon" value="Apply Coupon">
-													<span><i class="zmdi zmdi-arrow-right"></i></span>
-												</div>
+												<a href="{{route('shop')}}" class="button au-btn btn-small">Continue shopping <span><i class="zmdi zmdi-arrow-right"></i></span></a>
 											</div>
 											{{-- <div class="action-btn">
 												<input type="submit" class="button au-btn btn-small" name="update_cart" value="Update Cart">
@@ -150,42 +148,6 @@
 								<h2>Cart totals</h2>
 								<table class="shop_table shop_table_responsive">
 									<tbody>
-										<tr class="cart-subtotal">
-											<th>Subtotal</th>
-											<td data-title="Subtotal">
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">$</span>
-													{{ $total }}
-												</span>
-											</td>
-										</tr>
-										<tr class="shipping">
-											<th>Shipping</th>
-											<td>
-												<span class="shipping-calculator-button">Calculate Shipping</span>
-												<section class="shipping-calculator-form">
-													<p class=" form-row-wide" id="calc_shipping_country_field">
-														<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select select2-hidden-accessible" rel="calc_shipping_state" tabindex="-1" aria-hidden="true">
-															<option value="VN">VietNam</option>
-															<option value="JP">Japan</option>
-															<option value="ZM">Korea</option>
-														</select>
-														<span class="select-btn">
-															<i class="zmdi zmdi-caret-down"></i>
-														</span>
-													</p>
-													<p class="form-row-wide" id="calc_shipping_state_field">
-														<input type="text" class="hidden" name="calc_shipping_state" id="calc_shipping_state" value="" placeholder="Town / City">
-													</p>
-													<p class="form-row-wide" id="calc_shipping_postcode_field">
-														<input type="text" class="input-text" value="" placeholder="Postcode / ZIP" name="calc_shipping_postcode" id="calc_shipping_postcode">
-													</p>
-													<p>
-														<button type="submit" name="calc_shipping" value="1" class="button au-btn btn-small">Update Totals<i class="zmdi zmdi-arrow-right"></i></button>
-													</p>
-												</section>
-											</td>
-										</tr>
 										<tr class="order-total">
 											<th>Total</th>
 											<td data-title="Total">

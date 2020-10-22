@@ -20,7 +20,6 @@ class CategoryController extends Controller
         $users      = User::all();
         $categories = Category::all()->sortByDesc("id");
         $products   = Product::all();
-        $comments   = Comment::all();
         $pending            = Order::where('status','withApproval')
         ->orderBy('created_at','desc')
         ->get();
@@ -33,7 +32,7 @@ class CategoryController extends Controller
         $canceled            = Order::where('status','canceled')
         ->orderBy('created_at','desc')
         ->get();
-        return view('admin.categories.index',compact('categories','users','products','comments','pending',
+        return view('admin.categories.index',compact('categories','users','products','pending',
         'shipped','deliverd','canceled'));
     }
 

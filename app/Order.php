@@ -16,8 +16,4 @@ class Order extends Model
         return $this->hasMany(Order_product::class);
     }
 
-    public function BillingOrder()
-    {
-        return $this->belongsTo(BillingOrder::class);
-    }
 }

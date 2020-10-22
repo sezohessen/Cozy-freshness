@@ -54,29 +54,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-6">
-                    <div class="card card-stats mb-4 mb-xl-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <a href="{{route('comments')}}"><h5 class="card-title text-uppercase text-muted mb-0">Comments</h5></a>
-                                    <span class="h2 font-weight-bold mb-0">
-                                        @if (isset($allComments))
-                                            {{ $allComments->count() }}
-                                        @else
-                                            {{ $comments->count() }}
-                                        @endif
-                                    </span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                                        <i class="fas fa-comments"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-xl-6 col-lg-6 ">
                     <div class="card card-stats mt-4 mb-xl-0">
                         <div class="card-body">

@@ -19,10 +19,6 @@ class Product extends Model
     {
         return $this->hasMany(product_picture::class);
     }
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
     public static function active($id = NULL)
     {
         if($id == NULL){

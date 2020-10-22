@@ -341,114 +341,6 @@
 		</section>
 		<!-- End Categories Section -->
 
-		<!-- Featured Sale Section -->
-		<section class="featured-hp-1">
-			<div class="container">
-				<div class="featured-content woocommerce">
-					<h2 class="special-heading">Newest Products</h2>
-					<div class="content-area">
-						<div class="row">
-                            @foreach ($products as $product)
-                                <!-- Product -->
-
-                                <div class="col">
-                                    <div class="product type-product">
-                                        <div class="woocommerce-LoopProduct-link">
-                                            <div class="product-image">
-                                                <a href="{{route('shop.product',['id' => $product->id ,'slug' => str_slug($product->name)])}}" class="wp-post-image">
-                                                    <img class="image-cover" src="{{asset('uploads/products/'.$product->pictures->first()->picture)}}" alt="{{$product->name}}">
-                                                    @if (isset($product->pictures[1]->picture))
-                                                        <img class="image-secondary" src="{{asset('uploads/products/'.$product->pictures[1]->picture)}}" alt="{{$product->name}}">
-                                                    @endif
-                                                </a>
-                                                @if ($product->inStock==0||$product->inStock==NULL)
-                                                    <a href="#" class="onsale">
-                                                        Sale
-                                                    </a>
-                                                @endif
-                                                @if ($product->discount!=0||$product->discount!=NULL)
-                                                    <a href="#" class="onnew" style="top: 50px">{{$product->discount}}%</a>
-                                                @endif
-                                                @if ($product->inStock!=0||$product->inStock!=NULL)
-                                                    <form method="POST" action="{{ route('cart.add',['id' => $product->id]) }}">
-                                                        @csrf
-                                                        <input type="number" name="quantity" id="quantity" value="1" hidden>
-                                                        <div class="yith-wcwl-add-button show">
-                                                            <button  class="add_to_wishlist btn btn-defaul">
-                                                                <i class="zmdi zmdi-favorite-outline"></i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                @endif
-                                                <div class="button add_to_cart_button">
-                                                    <a href="#">
-                                                        <img src="images/icons/shopping-cart-black-icon.png" alt="cart">
-                                                    </a>
-                                                </div>
-                                                <h5 class="woocommerce-loop-product__title">
-                                                    <a href="{{route('shop.product',['id' => $product->id ,'slug' => str_slug($product->name)])}}">
-                                                        {{$product->name}}
-                                                    </a>
-                                                </h5>
-                                                <span class="price">
-                                                    @if ($product->discount!=0||$product->discount!=NULL)
-                                                        <del>
-                                                            <span class="woocommerce-Price-amount amount">
-                                                                <span class="woocommerce-Price-currencySymbol">$</span>
-                                                                {{$product->price}}
-                                                            </span>
-                                                        </del>
-                                                        <ins>
-                                                            <span class="woocommerce-Price-amount amount">
-                                                                <span class="woocommerce-Price-currencySymbol">$</span>
-                                                                {{$product->price - (($product->price * $product->discount)/100)}}
-                                                            </span>
-                                                        </ins>
-                                                    @else
-                                                        <ins>
-                                                            <span class="woocommerce-Price-amount amount">
-                                                                <span class="woocommerce-Price-currencySymbol">$</span>
-                                                                {{$product->price}}
-                                                            </span>
-                                                        </ins>
-                                                    @endif
-                                                {{-- Select Depend on Product id --}}
-
-                                                     <?php
-                                                     $avr_star       = App\Comment::where('product_id',$product->id)
-                                                     ->selectRaw('SUM(rate)/COUNT(user_id) AS avg_rating')
-                                                     ->first()
-                                                     ->avg_rating;
-                                                     $product_star = round($avr_star);
-                                                 ?>
-                                                 {{-- Select Depend on Product id --}}
-                                                 @if ($product_star!=0)
-                                                     <div class="shop-star-rating">
-                                                         @for ($i = 1; $i <=  5; $i++)
-                                                             @if ($product_star>=$i)
-                                                                 <i class="zmdi zmdi-star"></i>
-                                                             @else
-                                                                 <i class="zmdi zmdi-star-outline"></i>
-                                                             @endif
-                                                         @endfor
-                                                     </div>
-                                                 @endif
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            @endforeach
-						</div>
-					</div>
-					<div class="view-all">
-						<a href="{{route('shop')}}" class="au-btn btn-small">View All<i class="zmdi zmdi-arrow-right"></i></a>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End Featured Sale Section -->
 
 		<!-- Banner Section -->
 		<section class="banner-hp-1 section-box">
@@ -500,7 +392,7 @@
 								<div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12 right-block">
 									<div class="testimonials-detail">
 										<i class="zmdi zmdi-quote"></i>
-										
+
 									</div>
 								</div>
 							</div>

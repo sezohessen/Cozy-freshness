@@ -30,9 +30,9 @@
                                     <small class="badge badge-danger">{{$errors->first('name')}}</small>
                                     @endif
                                 </div>
-                                <div class="form-group required">
+                                <div class="form-group">
                                     <label for="description" class="form-control-label col-form-label">{{ __('Description') }}</label>
-                                    <textarea name="description" class="form-control" id="description" rows="3" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required></textarea>
+                                    <textarea name="description" class="form-control" id="description" rows="3" placeholder="{{ __('Description') }}" value="{{ old('description') }}" ></textarea>
                                     @if ($errors->has('description'))
                                     <small class="badge badge-danger">{{$errors->first('description')}}</small>
                                     @endif
@@ -80,30 +80,8 @@
                                       @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="Weight" class="col-2 col-form-label">Weight (KG)</label>
-                                    <div class="col-4">
-                                      <input type="number" name="weight" min="1" max="500" step="1"  id="Weight" class="form-control" placeholder="Kilo Gram">
-                                      <i class="fa fa-weight"></i>
-                                      @if ($errors->has('weight'))
-                                      <span class="invalid-feedback" role="alert">
-                                          <strong>{{ $errors->first('weight') }}</strong>
-                                      </span>
-                                      @endif
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="In Stock" class="col-2 col-form-label">In Stock</label>
-                                    <div class="col-4">
-                                      <input type="number" name="inStock" min="0" max="500" step="1"  id="In Stock" class="form-control" placeholder="In Stock">
-                                      <i class="fa fa-dolly"></i>
-                                      @if ($errors->has('inStock'))
-                                      <small class="badge badge-danger">{{$errors->first('inStock')}}</small>
-                                      @endif
-                                    </div>
-                                </div>
                                 <div class="form-group row required">
-                                    <label for="picture" class="col-2 col-form-label">Photo(up to 3)</label>
+                                    <label for="picture" class="col-2 col-form-label">Photo(up to 2)</label>
                                     <div class="col-4">
                                     <input type="file" name="picture[]"  multiple required>
                                     @if ($errors->has('picture'))

@@ -19,17 +19,14 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                   ->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('total',10,2);
-            $table->integer('shipping')->default(0);
-            $table->decimal('subtotal',10,2);
-            $table->string('ip');
             $table->string('status');//Pending ,Approval,Rejected,Complete
             $table->string('fullName');
-            $table->string('governorate');
-            $table->string('city');
-            $table->string('address');
+            $table->string('location');
+            $table->timestamp('pending')->nullable();
+            $table->timestamp('delivered')->nullable();
             $table->string('phone', 20);
             $table->string('moreInfo', 200)->nullable();
-            $table->string('paymentMethod');
+            $table->string('time');
             $table->timestamps();
         });
     }

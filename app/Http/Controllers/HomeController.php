@@ -161,40 +161,4 @@ class HomeController extends Controller
         return view('users.categories.show',compact('title','categories','products','product_picture','all_product',
         'category_info'));
     }
-    public function product($id,$slug)
-    {
-        $categories         = $this->categories;
-        $product            = Product::find($id);
-        $title              = 'Novas | '.$product->name;
-        if($product==NULL){
-            return view('users.notfound');
-        }
-        //Valide URL
-        if (!$product->active||($slug!=$product->slug)) {
-            return view('users.notfound');
-        }
-        $product_pictures   = product_picture::where('product_id', $id)
-        ->orderBy('id', 'desc')
-        ->get();
-        $products           = Product::active()
-        ->where('category_id',$product->category->id)
-        ->where('id','!=',$id)
-        ->orderBy('created_at', 'desc')
-        ->take(8)
-        ->get();
-        $comments           = Comment::where('product_id',$id)
-        ->orderBy('created_at', 'desc')
-        ->get();
-        $avr_star           = Comment::where('product_id',$id)
-        ->selectRaw('SUM(rate)/COUNT(user_id) AS avg_rating')
-        ->first()
-        ->avg_rating;
-        $product_star       = round($avr_star);
-        $hasComment         = Comment::where('product_id',$id)
-        ->where('user_id',Auth::id())
-        ->get()
-        ->first();
-        return view('users.product.show',compact('title','categories','product','product_pictures','products',
-        'comments','avr_star','product_star','hasComment'));
-    }
 }

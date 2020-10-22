@@ -59,10 +59,6 @@ class CartController extends Controller
     {
 
         $product    = Product::find($id);
-        if($product->inStock==0){
-            session()->flash('danger', 'Sorry product '.$product->name .' not availabe right now');
-            return redirect()->back();
-        }
         $cart = session()->get('cart');
         if(isset($cart[$id])) {
             if($cart[$id]['quantity'] < $product->inStock){
@@ -119,11 +115,7 @@ class CartController extends Controller
             if(!$product->count()){
                 session()->flash('notfound', 'Sorry product not availabe right now ');
                 return redirect()->route('shop.cart');
-            }elseif($product->inStock < $request->quantity){
-                session()->flash('leakquantity', 'Sorry product limit quantity');
-                return redirect()->route('shop.cart');
             }
-
             $cart[$id]["quantity"] = $request->quantity;
 
             session()->put('cart', $cart);

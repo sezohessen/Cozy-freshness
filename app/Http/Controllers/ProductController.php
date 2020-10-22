@@ -22,7 +22,6 @@ class ProductController extends Controller
     {
         $users              = User::all();
         $categories         = Category::all();
-        $comments           = Comment::all();
         $products           = Product::all()->sortByDesc("id");
         $product_picture    = product_picture::all();
         $pending            = Order::where('status','withApproval')
@@ -38,7 +37,7 @@ class ProductController extends Controller
         ->orderBy('created_at','desc')
         ->get();
         return view('admin.products.index',compact('categories','users','products','product_picture',
-        'comments','pending','shipped','deliverd','canceled'));
+        'pending','shipped','deliverd','canceled'));
     }
 
     /**
@@ -62,11 +61,11 @@ class ProductController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
-            'description' => 'required|max:255',
+            'description' => 'max:255',
             'category_id' =>'required',
             'quantity' =>'required',
             'price' =>'required',
-            'picture' =>'required|max:3',
+            'picture' =>'required|max:2',
             'picture.*'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         if($request->hasfile('picture'))
@@ -80,22 +79,21 @@ class ProductController extends Controller
         }
         $product = Product::create([
             'name'          =>  $request->name,
-            'description'   =>  $request->description,
             'category_id'   =>  $request->category_id,
             'price'         =>  $request->price,
-            'quantity'      =>  $request->quantity,
-            'slug'          =>  Str::slug($request->name),
+            'quantity'      =>  $request->quantity
         ]);
+        if($request->description){
+            $product->description       =  $request->description;
+            $product->save();
+        }
         $this->CreateOrIgnore($product,$request->discount,'discount');
-        $this->CreateOrIgnore($product,$request->weight,'weight');
-        $this->CreateOrIgnore($product,$request->inStock,'inStock');
         foreach ($data_img as $data){
             $product_image = product_picture::create([
                 'product_id'    =>$product->id,
                 'picture'       =>$data
             ]);
         }
-
         session()->flash('status', 'The Product has been Created!');
         return redirect()->route('products');
     }
@@ -122,9 +120,7 @@ class ProductController extends Controller
         $product_pictures   = product_picture::where('product_id', $id)
         ->orderBy('id', 'desc')
         ->get();
-        $comment            = Comment::where('product_id',$id)
-        ->get();
-        return view('admin.products.show',compact('product','product_pictures','comment'));
+        return view('admin.products.show',compact('product','product_pictures'));
     }
 
     /**
@@ -152,11 +148,11 @@ class ProductController extends Controller
         $product = Product::find($id);
         $this->validate($request,[
             'name' => 'required',
-            'description' => 'required|max:255',
+            'description' => 'max:255',
             'category_id' =>'required',
             'quantity' =>'required',
             'price' =>'required',
-            'picture' =>'max:3',
+            'picture' =>'max:2',
             'picture.*'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -166,19 +162,16 @@ class ProductController extends Controller
 
             }
         }
-
         $product->name        =  $request->name;
-        $product->description =  $request->description;
         $product->quantity    =  $request->quantity;
         $product->price       =  $request->price;
-        $product->slug        =  Str::slug($request->name);
         $product->category_id =  $request->category_id;
         $product->save();
-
         $this->CreateOrIgnore($product,$request->discount,'discount');
-        $this->CreateOrIgnore($product,$request->weight,'weight');
-        $this->CreateOrIgnore($product,$request->inStock,'inStock');
-
+        if($request->description){
+            $product->description       =  $request->description;
+            $product->save();
+        }
         session()->flash('status', 'The product has been updated!');
         return redirect()->route('products');
     }
@@ -226,17 +219,6 @@ class ProductController extends Controller
             $product->active = 0;
         }else{
             $product->active = 1;
-        }
-        $product->save();
-        return redirect()->route('products');
-    }
-    public function availability($id)
-    {
-        $product = Product::find($id);
-        if($product->availability){
-            $product->availability = 0;
-        }else{
-            $product->availability = 1;
         }
         $product->save();
         return redirect()->route('products');

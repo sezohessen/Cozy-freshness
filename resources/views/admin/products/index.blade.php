@@ -37,7 +37,6 @@
                                     <th scope="col">{{ __('Name') }}</th>
                                     <th scope="col">{{ __('Category') }}</th>
                                     <th scope="col">{{ __('Active') }}</th>
-                                    <th scope="col">{{ __('Availability') }}</th>
                                     <th scope="col">{{ __('Additional') }}</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -67,21 +66,6 @@
                                                 <a href="{{route('products.activation',$product->id)}}" onclick="return confirm('Are you sure?')">
                                                     <button type="button" class="btn btn-success">
                                                         {{ __('Active') }}
-                                                    </button>
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($product->availability==1)
-                                                <a href="{{route('products.availability',$product->id)}}" onclick="return confirm('Are you sure?')">
-                                                    <button type="button" class="btn btn-danger" >
-                                                        {{ __('Unavailable') }}
-                                                    </button>
-                                                </a>
-                                            @else
-                                                <a href="{{route('products.availability',$product->id)}}" onclick="return confirm('Are you sure?')">
-                                                    <button type="button" class="btn btn-success">
-                                                        {{ __('Available') }}
                                                     </button>
                                                 </a>
                                             @endif

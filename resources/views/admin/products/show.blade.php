@@ -39,31 +39,14 @@
                                 <h1 class="card-title">{{$product->name}}</h1>
                                 <h3 class="red">Price : <span>{{$product->price}}$</span> </h3>
                                 <strong class="red">Quantity : <span>{{$product->quantity}} pieces</span> </strong>
-                                <h3 class="red">Comments :
-                                    @if ($comment->count())
-                                        <a href="{{ route('comments.product',['id' => $product->id]) }}">{{ $comment->count() }}</a>
-                                    @else
-                                        No Comment Yet
-                                    @endif
-                                </h3>
                                 <hr>
                                 <p class="card-text">{{$product->description}}</p>
                                 <hr>
                                 <strong>Category : <a href="{{route('categories.show',$product->category_id)}}">{{$product->category->name}}</a> </strong>
-                                @if ($product->weight==0||$product->weight==NULL)
-                                    <h3>Weight : <span>unknown</span></h3>
-                                @else
-                                    <h3>Weight : <span>{{$product->weight}}KG</span></h3>
-                                @endif
                                 @if ($product->discount==0||$product->discount==NULL)
                                     <h3>Discount : <span>No discount yet.</span></h3>
                                 @else
                                     <h3>Discount : <span>{{$product->discount}}%</span></h3>
-                                @endif
-                                @if ($product->discount==0||$product->discount==NULL)
-                                    <h3>In Stock : <span>unknown</span></h3>
-                                @else
-                                    <h3>In Stock : <span>{{$product->inStock}}</span></h3>
                                 @endif
                                 <p class="card-text"><small class="text-muted"> <strong>Updated At :</strong> {{ $product->updated_at->format('d/m/Y H:i') }}</small></p>
                             </div>

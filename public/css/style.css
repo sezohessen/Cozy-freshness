@@ -1738,7 +1738,9 @@ textarea:-moz-placeholder {
       -moz-transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       -webkit-transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       -o-transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      -ms-transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+      -ms-transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        min-height: 400px;
+    }
   .categories-hp-1 .categories-content .categories-detail .product {
     position: absolute;
     left: 0;
@@ -1783,8 +1785,9 @@ textarea:-moz-placeholder {
         -webkit-transition: all 0.3s linear;
         -o-transition: all 0.3s linear;
         -ms-transition: all 0.3s linear;
-        min-height: 350px;
-        max-height: 350px;
+        min-width: 100%;
+        min-height: 300px;
+        max-height: 300px;
     }
       .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .wp-post-image .image-secondary {
         position: absolute;
@@ -1805,17 +1808,6 @@ textarea:-moz-placeholder {
           background: none; }
         .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .yith-wcwl-add-button:hover .add_to_wishlist i:before {
           content: '\f15f'; }
-      .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button {
-        width: 42px;
-        height: 40px;
-        border: 1px solid #e5e5e5;
-        position: absolute;
-        right: 20px;
-        bottom: 26px; }
-        .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button a {
-          position: absolute;
-          height: 100%;
-          width: 100%; }
         .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button img {
           position: absolute;
           top: 50%;
@@ -1825,21 +1817,22 @@ textarea:-moz-placeholder {
           -webkit-transform: translate(-50%, -50%);
           -o-transform: translate(-50%, -50%);
           -ms-transform: translate(-50%, -50%); }
-        .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button:hover {
-          background: #333;
-          border: none; }
       .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .woocommerce-loop-product__title {
-        position: absolute;
-        left: 20px;
-        bottom: 52px; }
+        height: 70px;
+     }
         .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .woocommerce-loop-product__title a:hover {
-          color: #333; }
+          color: #333;
+        font-size: 1rem;
+    }
       .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price {
-        position: absolute;
-        left: 20px;
-        bottom: 19px; }
-        .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price ins {
-          text-decoration: none; }
+
+    }
+    .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price ins {
+        text-decoration: none;
+        color: #ea005b;
+        font-weight: 600;
+        font-size: 1.1rem;
+     }
         .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price del {
           padding-right: 10px; }
         .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price .woocommerce-Price-currencySymbol {
@@ -2378,6 +2371,10 @@ textarea:-moz-placeholder {
     .shop-hp-4.featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button {
       right: 25px;
       bottom: 35px; }
+    .woocommerce-LoopProduct-link .product-image .add_to_cart_button form button{
+        width: 100%;
+        margin: 10px 0px;
+    }
     .shop-hp-4.featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .yith-wcwl-add-button {
       top: 22px;
       right: 25px; }
@@ -6242,7 +6239,6 @@ textarea:-moz-placeholder {
   .shop-hp-4.featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button {
     right: 15px;
     bottom: 15px; }
-
   /* Page Not Found */
   .page-not-found .page-detail .page-inner {
     width: 55%; }
@@ -6665,10 +6661,6 @@ textarea:-moz-placeholder {
   .shop-hp-4.featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button {
     right: 7px;
     bottom: 10px; }
-
-  .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button {
-    width: 35px;
-    height: 35px; }
 
   .shop-hp-4.featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .yith-wcwl-add-button {
     top: 10px;

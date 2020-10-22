@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => __('Edit Category')])
 
 @section('content')
-    @include('admin.users.partials.header', ['title' => __('Edit Category')])   
+    @include('admin.users.partials.header', ['title' => __('Edit Category')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -32,9 +32,9 @@
                                     <small class="badge badge-danger">{{$errors->first('name')}}</small>
                                     @endif
                                 </div>
-                                <div class="form-group required">
+                                <div class="form-group">
                                     <label for="description" class="form-control-label col-form-label">{{ __('Description') }}</label>
-                                    <textarea name="description" class="form-control" id="description" rows="3" 
+                                    <textarea name="description" class="form-control" id="description" rows="3"
                                     placeholder="{{ __('Description') }}" value="{{ old('description') }}" required>{{$product->description}}</textarea>
                                     @if ($errors->has('description'))
                                     <small class="badge badge-danger">{{$errors->first('description')}}</small>
@@ -46,12 +46,12 @@
                                         <select class="form-control" id="category" name="category_id" required>
                                             @foreach ($categories as $category)
                                                 @if ($product->category_id == $category->id)
-                                                    <option value="{{$category->id}}" selected>{{$category->name}}</option> 
+                                                    <option value="{{$category->id}}" selected>{{$category->name}}</option>
                                                 @else
                                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                                 @endif
                                             @endforeach
-                                        </select>                                      
+                                        </select>
                                     </div>
                                   </div>
                                 <div class="form-group row required">
@@ -79,7 +79,7 @@
                                 <div class="form-group row">
                                     <label for="Discount" class="col-2 col-form-label">Discount(%)</label>
                                     <div class="col-4">
-                                      <input type="number" name="discount" min="0" max="100" step="1" 
+                                      <input type="number" name="discount" min="0" max="100" step="1"
                                        id="Discount" class="form-control" value="{{$product->discount}}"  placeholder="Discount">
                                       <i class="fa fa-percentage"></i>
                                       @if ($errors->has('discount'))
@@ -89,32 +89,8 @@
                                       @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="Weight" class="col-2 col-form-label">Weight (KG)</label>
-                                    <div class="col-4">
-                                      <input type="number" name="weight" min="0" max="500" step="1"
-                                        id="Weight" class="form-control" value="{{$product->weight}}"  placeholder="Kilo Gram">
-                                      <i class="fa fa-weight"></i>
-                                      @if ($errors->has('weight'))
-                                      <span class="invalid-feedback" role="alert">
-                                          <strong>{{ $errors->first('weight') }}</strong>
-                                      </span>
-                                      @endif
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="In Stock" class="col-2 col-form-label">In Stock</label>
-                                    <div class="col-4">
-                                      <input type="number" name="inStock" min="0" max="500" step="1"
-                                        id="In Stock" class="form-control" value="{{$product->inStock}}" placeholder="In Stock">
-                                      <i class="fa fa-dolly"></i>
-                                      @if ($errors->has('inStock'))
-                                      <small class="badge badge-danger">{{$errors->first('inStock')}}</small>
-                                      @endif
-                                    </div>
-                                </div>
                                 <div class="form-group row required">
-                                    <label for="picture" class="col-2 col-form-label">Photo(up to 4)</label>
+                                    <label for="picture" class="col-2 col-form-label">Photo(up to 2)</label>
                                     <div class="col-4">
                                     <input type="file" name="picture[]"  multiple>
                                     @if ($errors->has('picture'))
@@ -122,7 +98,7 @@
                                     @endif
                                     <small>Note: all images product will be deleted if you upload any others images.</small>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>

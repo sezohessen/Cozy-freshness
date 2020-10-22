@@ -20,7 +20,6 @@ class UserController extends Controller
         $users      = User::all();
         $categories = Category::all();
         $products   = Product::all();
-        $comments   = Comment::all();
         $pending            = Order::where('status','withApproval')
         ->orderBy('created_at','desc')
         ->get();
@@ -33,7 +32,7 @@ class UserController extends Controller
         $canceled            = Order::where('status','canceled')
         ->orderBy('created_at','desc')
         ->get();
-        return view('admin.users.index', compact('users','categories','products','comments','pending',
+        return view('admin.users.index', compact('users','categories','products','pending',
         'shipped','deliverd','canceled'));
     }
 
