@@ -30,10 +30,7 @@ class HomeController extends Controller
         $users      = User::all();
         $categories = Category::all();
         $products   = Product::all();
-        $pending            = Order::where('status','withApproval')
-        ->orderBy('created_at','desc')
-        ->get();
-        $shipped            = Order::where('status','shipped')
+        $pending            = Order::where('status','pending')
         ->orderBy('created_at','desc')
         ->get();
         $deliverd            = Order::where('status','delivered')
@@ -42,7 +39,7 @@ class HomeController extends Controller
         $canceled            = Order::where('status','canceled')
         ->orderBy('created_at','desc')
         ->get();
-        return view('admin.dashboard',compact('users','categories','products','pending',
-        'shipped','deliverd','canceled'));
+        return view('admin.dashboard',compact('users','categories','products','pending'
+        ,'deliverd','canceled'));
     }
 }

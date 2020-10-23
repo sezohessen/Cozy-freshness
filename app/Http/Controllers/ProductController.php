@@ -24,10 +24,7 @@ class ProductController extends Controller
         $categories         = Category::all();
         $products           = Product::all()->sortByDesc("id");
         $product_picture    = product_picture::all();
-        $pending            = Order::where('status','withApproval')
-        ->orderBy('created_at','desc')
-        ->get();
-        $shipped            = Order::where('status','shipped')
+        $pending            = Order::where('status','pending')
         ->orderBy('created_at','desc')
         ->get();
         $deliverd            = Order::where('status','delivered')
@@ -37,7 +34,7 @@ class ProductController extends Controller
         ->orderBy('created_at','desc')
         ->get();
         return view('admin.products.index',compact('categories','users','products','product_picture',
-        'pending','shipped','deliverd','canceled'));
+        'pending','deliverd','canceled'));
     }
 
     /**

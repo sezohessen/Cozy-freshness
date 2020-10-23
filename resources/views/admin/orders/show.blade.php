@@ -26,9 +26,7 @@
                                         <h4>Full name: <strong>{{ $order->fullName }}</strong><h4>
                                         <h4>Email: <strong>{{ $order->user->email }}</strong><h4>
                                         <h4>Phone: <strong>{{ $order->phone }}</strong><h4>
-                                        <h4>Governorate: <strong>{{ $order->governorate }}</strong><h4>
-                                        <h4>City: <strong>{{ $order->city }}</strong><h4>
-                                        <h4>Address: <strong>{{ $order->address }}</strong><h4>
+                                        <h4>Location: <strong>{{ $order->location }}</strong><h4>
                                         <h4>More information:
                                             @if ($order->moreInfo)
                                                 <strong>{{ $order->moreInfo }}</strong>
@@ -37,13 +35,11 @@
                                             @endif
 
                                         <h4>
-                                        <h4>Payment Method: <strong>{{ $order->paymentMethod }}</strong><h4>
+                                        <h4>Time: <strong>{{ $order->time }}</strong><h4>
                                     </div>
                                     <div class="col-md-6">
                                         <h1 class="card-title">{{ucfirst(trans($order->status))}}</h1>
                                         <h4>Total: <strong>{{$order->total}}</strong><h4>
-                                        <h4>Subtotal: <strong>{{$order->subtotal}}</strong><h4>
-                                        <h4>Shipping: <strong>{{$order->shipping}}</strong><h4>
                                         <h4>Product Count: <strong>{{ $order->orders->count() }}</strong><h4>
                                         @if ($order->status=='withApproval')
                                             <p class="card-text"><strong>Orderd At :</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
@@ -54,18 +50,11 @@
                                             <strong>Delivered At :</strong> {{ Carbon\Carbon::parse($order->delivered)->format('m/d H:i') }}
                                         @endif
 
-                                        @if ($order->status == 'withApproval')
-                                        <form action="{{ route('order.shipped',['id' => $order->id]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-lg btn-success" onclick="return confirm('Are you sure?')">
-                                                {{ __('Shipped') }}<i class="fa fa-check"></i>
-                                            </button>
-                                        </form>
-                                        @elseif($order->status == 'shipped')
+                                        @if ($order->status == 'pending')
                                         <form action="{{ route('order.delivered',['id' => $order->id]) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="btn btn-lg btn-primary" onclick="return confirm('Are you sure?')">
-                                                {{ __('Deliverd') }}<i class="fa fa-check"></i>
+                                            <button type="submit" class="btn btn-lg btn-success">
+                                                {{ __('Delivered') }}<i class="fa fa-check"></i>
                                             </button>
                                         </form>
                                         @else

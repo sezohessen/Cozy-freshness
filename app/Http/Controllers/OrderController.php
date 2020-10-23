@@ -24,10 +24,7 @@ class OrderController extends Controller
         $users              = User::all();
         $categories         = Category::all();
         $products           = Product::all();
-        $pending            = Order::where('status','withApproval')
-        ->orderBy('created_at','desc')
-        ->get();
-        $shipped            = Order::where('status','shipped')
+        $pending            = Order::where('status','pending')
         ->orderBy('created_at','desc')
         ->get();
         $deliverd            = Order::where('status','delivered')
@@ -37,11 +34,7 @@ class OrderController extends Controller
         ->orderBy('created_at','desc')
         ->get();
         if($status == 'pending'){
-            $orders         = Order::where('status','withApproval')
-            ->orderBy('created_at','desc')
-            ->get();
-        }elseif($status == 'shipped'){
-            $orders         = Order::where('status','shipped')
+            $orders         = Order::where('status','pending')
             ->orderBy('created_at','desc')
             ->get();
         }elseif($status == 'delivered'){
@@ -54,7 +47,7 @@ class OrderController extends Controller
             ->get();
         }
         return view('admin.orders.index',compact('categories','users','products',
-        'orders','pending','shipped','deliverd','canceled','status'));
+        'orders','pending','deliverd','canceled','status'));
     }
     public function shipped($id)
     {

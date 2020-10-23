@@ -32,9 +32,10 @@
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">{{ __('User Name') }}</th>
-                                    <th scope="col">{{ __('Products') }}</th>
+                                    <th scope="col">{{ __('Time') }}</th>
+                                    <th scope="col">{{ __('Needed') }}</th>
                                     <th scope="col">{{ __('Price') }}</th>
-                                    <th scope="col">{{ __('Governorate') }}</th>
+                                    <th scope="col">{{ __('Location') }}</th>
                                     <th scope="col">{{ __('Phone') }}</th>
                                     <th scope="col">{{ __('Change Status') }}</th>
                                     @if ($status != 'delivered' && $status != 'canceled')
@@ -56,31 +57,32 @@
                                             <p>{{ $order->user->name }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $order->orders->count() }}</p>
+                                            @if ($status == 'pending')
+                                                {{ Carbon\Carbon::parse($order->pending)->format('h:i A') }}
+                                            @elseif($status == 'delivered')
+                                                {{ Carbon\Carbon::parse($order->pending)->format('h:i A') }}
+                                            @else
+                                                {{ $order->updated_at->format('h:i A') }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <p>{{ $order->time }}</p>
                                         </td>
                                         <td>
                                             <p style="margin: 0">{{ $order->total }}$</p>
-                                            <small>({{ $order->subtotal }} + {{ $order->shipping }})</small>
                                         </td>
                                         <td>
-                                            <p>{{ $order->governorate }}</p>
+                                            <p>{{ $order->location }}</p>
                                         </td>
                                         <td>
                                             <p>{{ $order->phone }}</p>
                                         </td>
                                         <td>
                                             @if ($status == 'pending')
-                                            <form action="{{ route('order.shipped',['id' => $order->id]) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Are you sure?')">
-                                                    {{ __('Shipped') }}<i class="fa fa-check"></i>
-                                                </button>
-                                            </form>
-                                            @elseif($status == 'shipped')
                                             <form action="{{ route('order.delivered',['id' => $order->id]) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Are you sure?')">
-                                                    {{ __('Deliverd') }}<i class="fa fa-check"></i>
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    {{ __('delivered') }}<i class="fa fa-check"></i>
                                                 </button>
                                             </form>
                                             @else

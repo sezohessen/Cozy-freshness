@@ -20,10 +20,7 @@ class UserController extends Controller
         $users      = User::all();
         $categories = Category::all();
         $products   = Product::all();
-        $pending            = Order::where('status','withApproval')
-        ->orderBy('created_at','desc')
-        ->get();
-        $shipped            = Order::where('status','shipped')
+        $pending            = Order::where('status','pending')
         ->orderBy('created_at','desc')
         ->get();
         $deliverd            = Order::where('status','delivered')
@@ -33,7 +30,7 @@ class UserController extends Controller
         ->orderBy('created_at','desc')
         ->get();
         return view('admin.users.index', compact('users','categories','products','pending',
-        'shipped','deliverd','canceled'));
+        'deliverd','canceled'));
     }
 
     public function create()
