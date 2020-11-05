@@ -1,3 +1,6 @@
+<?php use Illuminate\Support\Facades\DB;
+  $notifications=  DB::table('notifications')->whereNull('read_at')->orderBy('created_at', 'DESC')->skip(0)->take(maximum_notify())->get();
+  ?>
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
         <!-- Toggler -->
@@ -9,15 +12,66 @@
             <img src="{{isset($setting->logo) ? Storage::url($setting->logo) : asset('Constant_Images/Cozy.png')}}" alt="logo"
             width="100"style="border-radius: 50%">
         </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main-notify" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="ni ni-bell-55 " id="count_notify">
+                {{count($notifications)}}
+            </i>
+        </button>
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main-notify">
+            <!-- Collapse header -->
+            <div class="navbar-collapse-header d-md-none">
+                <div class="row">
+                    <div class="col-6 collapse-brand">
+                        <a href="{{ route('home') }}">
+                            <img src="{{isset($setting->logo) ? Storage::url($setting->logo) : asset('Constant_Images/Cozy.png')}}" alt="logo"
+                        style="border-radius: 50%">
+                        </a>
+                    </div>
+                    <div class="col-6 collapse-close">
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main-notify" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <ul class="navbar-nav nav align-items-center d-md-none">
+                @if(count($notifications)==0)
+                <div class=" dropdown-header noti-title">
+                    <h6 class="text-overflow m-0">{{ __('There are no Notification yet !') }}</h6>
+                </div>
+            @else
+                <div class=" dropdown-header noti-title">
+                    <h6 class="text-overflow m-0">{{ __('Notification !') }}</h6>
+                </div>
+                <a  class="dropdown-item" href="{{route("notify_clear")}}" style="font-weight: 800">
+                    Mark all as Read
+                        <i class="ni ni-check-bold text-green"></i>
+                </a>
+                @foreach($notifications as $notify)
+                <div class=" dropdown-header">
+                    <a href="{{route("order.show",json_decode($notify->data)->id )}}" class="dropdown-item">
+                        <object>
+                            <a href="{{route("notify_element",['notify'=>$notify->id])}}">
+                                <i class="ni ni-fat-remove text-red" style="font-size: 20px"></i>
+                        </a>
+                        </object>
+                        Created At <span>{{  \Carbon\Carbon::parse(json_decode($notify->data)->created_at)->timezone('Africa/Cairo')->format('h:i a ') }}</span>,
+                        Deliverd <span>{{ json_decode($notify->data)->Deliverd_After}}</span>
+                        <i class="ni ni-bold-right text-green"></i>
+                    </a>
+                </div>
+
+                @endforeach
+            @endif
+            </ul>
+        </div>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
-                        </span>
-                    </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
@@ -55,7 +109,8 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <img src="{{isset($setting->logo) ? Storage::url($setting->logo) : asset('Constant_Images/Cozy.png')}}" alt="logo"
+                            " style="border-radius: 50%">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -66,17 +121,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Form -->
-            <form class="mt-4 mb-3 d-md-none">
-                <div class="input-group input-group-rounded input-group-merge">
-                    <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="{{ __('Search') }}" aria-label="Search">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <span class="fa fa-search"></span>
-                        </div>
-                    </div>
-                </div>
-            </form>
             <!-- Navigation -->
             <ul class="navbar-nav">
 

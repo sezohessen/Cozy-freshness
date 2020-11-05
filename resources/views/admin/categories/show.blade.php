@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card mb-3">
-                            <img class="card-img-top" src="{{Storage::url($category->picture)}}" alt="Card image cap" width="100%" height="400px">
+                            <img class="card-img-top center-img p-2" src="{{Storage::url($category->picture)}}"  alt="Card image cap" width="500px" height="500px">
                             <div class="card-body">
                                 <h1 class="card-title">{{$category->name}}</h1>
                                 <p class="card-text">{{$category->description}}</p>

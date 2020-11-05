@@ -2371,9 +2371,14 @@ textarea:-moz-placeholder {
     .shop-hp-4.featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .add_to_cart_button {
       right: 25px;
       bottom: 35px; }
-    .woocommerce-LoopProduct-link .product-image .add_to_cart_button form button{
+    .woocommerce-LoopProduct-link .product-image .add_to_cart_button button{
         width: 100%;
         margin: 10px 0px;
+    }
+    .woocommerce-LoopProduct-link .product-image .out-stock{
+        display: block;
+        text-align: center;
+        margin: 16px 0px;
     }
     .shop-hp-4.featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .yith-wcwl-add-button {
       top: 22px;

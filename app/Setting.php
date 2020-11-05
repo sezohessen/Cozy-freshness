@@ -18,4 +18,5 @@ class Setting extends Model
         "mail",
         "BGshop"
     ];
+
 }

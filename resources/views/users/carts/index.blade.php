@@ -93,7 +93,7 @@
                                                 <img src="{{ Storage::url($product->pictures[0]->picture)  }}" alt="product">
                                             </a>
                                             <a href="{{ route('shop.product',['id' =>$id ,'slug' =>str_slug($product->name)]) }}">
-                                                {{ $product->name }}  x{{ $product->quantity }}
+                                                {{ $product->name }}
                                             </a>
 										</td>
 										<td class="product-price" data-title="Price">
@@ -108,14 +108,12 @@
                                                     @csrf
                                                     <select class="custom-select mr-sm-2" onchange="this.form.submit()"
                                                     name="quantity"  style="cursor: pointer" >
-
-                                                        @for ($i = 1; $i <= 10; $i++)
-                                                            @if ($i == $cart_info['quantity'])
-                                                              <option value="{{ $cart_info['quantity'] }}" selected>{{ $cart_info['quantity'] }}</option>
+                                                        @for ($i = 1; $i <= $product->quantity; $i++)
+                                                            @if ($cart_info['quantity']==$i)
+                                                                <option value="{{ $i }}" selected>{{ $i }}</option>
                                                             @else
-                                                              <option value="{{ $i }}">{{ $i }}</option>
+                                                                <option value="{{ $i }}">{{ $i }}</option>
                                                             @endif
-
                                                         @endfor
                                                     </select>
                                                 </form>

@@ -47,7 +47,7 @@
                                         </select>
 
                                     </div>
-                                  </div>
+                                </div>
                                 <div class="form-group row required">
                                     <label for="quantity" class="col-2 col-form-label">Quantity</label>
                                     <div class="col-4">

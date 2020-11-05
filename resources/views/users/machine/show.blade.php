@@ -1,49 +1,63 @@
-@include('users.layouts.header.header')
-
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<title>{{ $title ?? "Cozy" }}</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Mobile Specific Metas
+  	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Favicon
+  	================================================== -->
+  	<link rel="shortcut icon" href="{{asset('favicon.png')}}" />
+  	<!-- Font
+  ================================================== -->
+  	<link rel="stylesheet" type="text/css" href="{{asset('fonts/material-design-iconic-font/css/material-design-iconic-font.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('fonts/linearicons/style.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/poppins-font.css')}}">
+	<!-- CSS
+  ================================================== -->
+	<!-- Bootrap -->
+    <link rel="stylesheet" href="{{asset('vendor/bootrap/css/bootstrap.min.css')}}"/>
+	<!-- Owl Carousel 2 -->
+	<link rel="stylesheet" href="{{asset('vendor/owl/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('vendor/owl/css/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/owl/css/animate.css')}}">
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{asset('vendor/fontawesome/fontawesome.min.css')}}"/>
+    <!-- Slider Revolution CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/settings.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/layers.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/navigation.css')}}">
+    <!-- fancybox-master Library -->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/fancybox-master/css/jquery.fancybox.min.css')}}">
+    <!-- Audio Library-->
+    <link rel="stylesheet" href="{{asset('vendor/mejs/mediaelementplayer.css')}}">
+    <!-- noUiSlider Library -->
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/nouislider/css/nouislider.css')}}">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}"/>
+</head>
+<?php     $setting = App\Setting::orderBy('id', 'DESC')->get()->first();?>
+<body class="homepages-1">
+	<!-- Images Loader -->
+	<div class="images-preloader">
+	    <div id="preloader_1" class="rectangle-bounce">
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	    </div>
+	</div>
 	<div class="page-content">
-		<!-- Breadcrumb Section -->
-        <section class="breadcrumb-contact-us breadcrumb-section section-box"
-        @if (isset($category_info) || isset($setting_shop_image))
-            style="background-image: url({{Storage::url($category_info->picture ?? $setting_shop_image)}})"
-        @else
-            style="background-image: url({{asset('images/shop-bc.jpg')}})"
-        @endif
-        >
-			<div class="container">
-				<div class="breadcrumb-inner">
-					<h1 style="color:white" >
-                        @if (isset($category_info))
-                            {{$category_info->name}}
-                        @else
-                            Shop
-                        @endif
-                    </h1>
-					<ul class="breadcrumbs">
-                        <li><a class="breadcrumbs-1" href="{{route('Ecommerce')}}">Home</a></li>
-                        <li>
-                            @if (isset($category_info))
-                            {{$category_info->name}}
-                            @else
-                                Shop
-                            @endif
-                        </li>
-                    </ul>
-                    <p  style="color:white" >
-                        @if (isset($category_info))
-                        {{$category_info->description}}
-                        @else
-                            Shop
-                        @endif
-                    </p>
-				</div>
-			</div>
-		</section>
-		<!-- End Breadcrumb Section -->
-
 		<!-- Shop Section -->
 		<section class="featured-hp-1 items-hp-6 shop-full-page shop-right-siderbar">
 			<div class="container">
-				<div class="featured-content woocommerce">
+				<div class="featured-content woocommerce" style="padding:20px">
 					<div class="row">
 						<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
 							<div class="widget-area">
@@ -151,12 +165,12 @@
                                                             <strong class="out-stock">Out of stock</strong>
                                                         @else
                                                             <div class="button add_to_cart_button">
-
-                                                                    <form method="POST" action="{{ route('cart.add',['id' => $product->id]) }}">
-                                                                        @csrf
-                                                                        <input type="number" name="quantity" id="quantity" value="1" hidden>
-                                                                        <button type="submit" class="btn btn-dark">Add to Cart</button>
-                                                                    </form>
+                                                                <form method="POST" action="{{ route('machine.add',['id' => $product->id]) }}">
+                                                                    @csrf
+                                                                    <input type="number" name="quantity" id="quantity" value="1" hidden>
+                                                                    <input type="machine" name="machine" id="machine" value="machine" hidden>
+                                                                    <button type="submit" class="btn btn-dark">Add to Cart</button>
+                                                                </form>
                                                             </div>
                                                         @endif
                                                     </div>

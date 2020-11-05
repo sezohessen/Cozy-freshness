@@ -1,7 +1,9 @@
 @extends('layouts.app', ['title' => __('User Management')])
 
 @section('content')
-    @include('layouts.headers.cards')
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col">
@@ -10,6 +12,37 @@
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <h3 class="mb-0">{{ $status }} {{ __('Orders') }}</h3>
+                            </div>
+                            <div class="col-4">
+                                <form action="" method="get">
+                                    @csrf
+                                    <select class="custom-select" name="order" id="" style="width:70%">
+                                        @if ($today==1)
+                                            <option value="today" selected>Today</option>
+                                        @else
+                                            <option value="today">Today</option>
+                                        @endif
+
+                                        @if ($week==1)
+                                            <option value="week" selected>Last week</option>
+                                        @else
+                                            <option value="week">Last week</option>
+                                        @endif
+
+                                        @if ($month==1)
+                                            <option value="month" selected>Last month</option>
+                                        @else
+                                            <option value="month">Last month</option>
+                                        @endif
+                                        
+                                        @if ($all==1)
+                                            <option value="all" selected>All</option>
+                                        @else
+                                            <option value="all">All</option>
+                                        @endif
+                                    </select>
+                                    <button class="btn btn-dark">GO ></button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -117,10 +150,15 @@
                             </div>
                         @endif
                     </div>
+                    <div class="navigation pagination">
+                        <div class="page-numbers">
+                            {{ $orders->appends(Request::only(['order']))->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        @include('layouts.footers.auth')
+
     </div>
 @endsection

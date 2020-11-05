@@ -22,9 +22,9 @@
                             <div class="row product-show-img">
                                 @foreach ($product_pictures as $key => $product_picture)
                                         @if ($key==0)
-                                            <div class="col-12">
-                                                <img class="card-img-top" src="{{Storage::url($product_picture->picture)}}"
-                                                alt="Card image cap" width="100%" height="500px">
+                                            <div class="col-12 m-4">
+                                                <img class="img-thumbnail center-img" src="{{Storage::url($product_picture->picture)}}"
+                                                alt="Card image cap" width="500px" height="500px">
                                                 <hr>
                                             </div>
                                         @else
@@ -38,7 +38,7 @@
                             <div class="card-body">
                                 <h1 class="card-title">{{$product->name}}</h1>
                                 <h3 class="red">Price : <span>{{$product->price}}$</span> </h3>
-                                <strong class="red">Quantity : <span>{{$product->quantity}} pieces</span> </strong>
+                                <strong class="red">Available Quantity : <span>{{$product->quantity}} pieces</span> </strong>
                                 <hr>
                                 <p class="card-text">{{$product->description}}</p>
                                 <hr>

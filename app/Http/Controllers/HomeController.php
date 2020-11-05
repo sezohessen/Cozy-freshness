@@ -10,6 +10,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Setting;
+use Laravel\Ui\Presets\React;
+
 class HomeController extends Controller
 {
 
@@ -28,22 +30,10 @@ class HomeController extends Controller
         $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
         Setting::orderBy('id', 'DESC')->get()->first()->appname:
         "Cozy";
-        $first_Slider       = Category::active()
+        $MainCat       = Category::active()
         ->orderBy('created_at','desc')
-        ->first();
-
-        $second_Slider      = Category::active()
-        ->orderBy('created_at','desc')
-        ->skip(1)
-        ->take(1)
-        ->get()
-        ->first();
-        $third_Slider       = Category::active()
-        ->orderBy('created_at','desc')
-        ->skip(2)
-        ->take(1)
-        ->get()
-        ->first();
+        ->take(3)
+        ->get();
         $users              = User::all();
         $categories = $this->categories;
         $product_picture    = product_picture::all();
@@ -55,8 +45,7 @@ class HomeController extends Controller
         ->orderBy('created_at', 'desc')
         ->take(8)
         ->get();
-        return view('users.main',compact('title','users','categories','products','first_Slider','second_Slider'
-    ,'third_Slider'));
+        return view('users.main',compact('title','users','categories','products','MainCat'));
     }
     public function shop(Request $Request)
     {
@@ -117,9 +106,12 @@ class HomeController extends Controller
             return $query->where('active', 1);
         })
         ->get();
-        return view('users.categories.show',compact('title','categories','products','product_picture','all_product'
+        $setting_shop_image=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->BGshop:null;
+        return view('users.categories.show',compact('title','categories','products','product_picture','all_product',"setting_shop_image"
         ));
     }
+
     public function SpecificCateg(Request $Request,$id, $slug)
     {
 
@@ -165,5 +157,69 @@ class HomeController extends Controller
         ->first();
         return view('users.categories.show',compact('title','categories','products','product_picture','all_product',
         'category_info'));
+    }
+    public function machine(Request $Request)
+    {
+        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->appname."| Machine" :
+        "Cozy | Machine";
+        //dd($Request);
+        //Can not passing  $Request->order in orderBy
+        //Like orderBy('new_price',$Request->order)  --->> vulnerable SQL Injection
+        // get active rows
+        $query = Product::active()
+        ->whereHas('category', function ($query) {
+            return $query->where('active', 1);
+        });
+        // search filter
+
+        //Start Filter Section
+        /*
+        -Select
+        -Where
+        -OrderBy
+        */
+        // -----------Search And Sort--------------
+        if (isset($Request->order) && $Request->order == 'desc') {
+            $query->selectRaw(" * , price - ((price * discount)/100) as new_price ");
+        }elseif(isset($Request->order) && $Request->order == 'asc'){
+            $query->selectRaw(" * , price - ((price * discount)/100) as new_price ");
+        }
+
+        if (isset($Request->search)){
+            $query->where('name','like','%'.request('search').'%');
+        }
+
+        if (isset($Request->order) && $Request->order == 'desc') {
+            $query->orderBy('new_price','desc');
+        }elseif(isset($Request->order) && $Request->order == 'asc'){
+            $query->orderBy('new_price','asc');
+        }else{
+            $query->orderBy('created_at', 'desc');
+        }
+        $products = $query->paginate(9);
+        $products->appends(['order' => $Request->order, 'search' => $Request->search ]);
+        //Select from db depend on Relation
+
+        // -----------Search And Sort--------------
+        //End Filter Section
+        $all_product        = Product::active() //Prodcut Count
+        ->whereHas('category', function ($query) {
+            return $query->where('active', 1);
+        })
+        ->get();
+        //dd($products->toSql());
+
+        $product_picture    = product_picture::all();
+        $categories         = Category::active()
+        ->orderBy('created_at', 'desc')
+        ->whereHas('products', function ($query) {
+            return $query->where('active', 1);
+        })
+        ->get();
+        $setting_shop_image=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->BGshop:null;
+        return view('users.machine.show',compact('title','categories','products','product_picture','all_product',"setting_shop_image"
+        ));
     }
 }

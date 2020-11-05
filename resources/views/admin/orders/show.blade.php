@@ -41,15 +41,11 @@
                                         <h1 class="card-title">{{ucfirst(trans($order->status))}}</h1>
                                         <h4>Total: <strong>{{$order->total}}</strong><h4>
                                         <h4>Product Count: <strong>{{ $order->orders->count() }}</strong><h4>
-                                        @if ($order->status=='withApproval')
-                                            <p class="card-text"><strong>Orderd At :</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
-                                        @elseif($order->status=='shipped')
-                                            <p class="card-text"><strong>Shipped At :</strong> {{ Carbon\Carbon::parse($order->shipped)->format('H:i') }} </p>
-                                            <span>{{ Carbon\Carbon::parse($order->shipped)->format('l, F j ')}}</span>
+                                        @if ($order->status=='pending')
+                                            <strong>Orderd At :</strong> {{ Carbon\Carbon::parse($order->pending)->format('m/d l,h:i A') }}
                                         @elseif($order->status=='delivered')
-                                            <strong>Delivered At :</strong> {{ Carbon\Carbon::parse($order->delivered)->format('m/d H:i') }}
+                                            <strong>Delivered At :</strong> {{ Carbon\Carbon::parse($order->delivered)->format('m/d l,h:i A') }}
                                         @endif
-
                                         @if ($order->status == 'pending')
                                         <form action="{{ route('order.delivered',['id' => $order->id]) }}" method="POST">
                                             @csrf
@@ -82,7 +78,7 @@
                                     <strong>x {{ $order->quantity }}</strong>
                                 </div>
                                 <div class="card-body text-dark">
-                                    <img src="{{asset('uploads/products/'.$order->product->pictures->first()->picture )}}" alt="{{$order->product->name}}" class="img-fluid img-thumbnail">
+                                    <img src="{{ Storage::url($order->product->pictures->first()->picture)}}" alt="{{$order->product->name}}" class="img-fluid img-thumbnail">
                                     <h5 class="card-title">Price One unit :<strong>{{$order->price}}$</strong></h5>
                                     <h5 class="card-title">Discount :<strong>{{$order->discount}}%</strong></h5>
                                     <h4 class="card-title">Final Price :<strong>{{($order->price - (($order->price * $order->discount)/100))* $order->quantity}}$</strong></h4>

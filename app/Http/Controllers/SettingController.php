@@ -44,15 +44,15 @@ class SettingController extends Controller
     {
 
         $data=$this->validate($request,[
-            'appname'         =>  'required',
-            'description'  =>  'required|max:255',
-            'address'      =>  'nullable|max:100',
-            'facebook'      =>  'nullable|url',
-            'instagram'      =>  'nullable|url',
-            'whatsapp'      =>  'nullable|numeric|digits:11',
-            "mail"  =>  'nullable|email',
-            'logo'    =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
-            "BGshop"=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
+            'appname'           =>  'required',
+            'description'       =>  'required|max:255',
+            'address'           =>  'nullable|max:100',
+            'facebook'          =>  'nullable|url',
+            'instagram'         =>  'nullable|url',
+            'whatsapp'          =>  'nullable|numeric|digits:11',
+            "mail"              =>  'nullable|email',
+            'logo'              =>  'image|mimes:jpeg,png,jpg,gif,svg|max:10240|required',
+            "BGshop"            =>'image|mimes:jpeg,png,jpg,gif,svg|max:10240|required',
         ]);
         $data['logo']=request()->file('logo')->store('settings');
         $data['BGshop']=request()->file('BGshop')->store('settings');

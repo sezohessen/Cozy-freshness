@@ -45,9 +45,16 @@
                             <tbody>
                                 @foreach ($categories as $category)
                                     <tr>
-                                        <td>
-                                            <img src="{{Storage::url($category->picture)}}" alt="{{$category->picture}}" class="img-fluid img-thumbnail" width="100px" height="100px">
+                                        <td class="img-td">
+                                            <img src="{{Storage::url($category->picture)}}" alt="{{$category->picture}}" class="img-fluid img-thumbnail"  width="100px" height="100px">
                                         </td>
+                                        <style>
+                                             @media only screen and (max-width: 360px) {
+                                           .img-td {
+                                               padding:0 !important;
+                                           }
+                                        }
+                                        </style>
                                         <td>
                                             <p>{{$category->name}}</p>
                                         </td>

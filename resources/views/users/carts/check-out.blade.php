@@ -85,19 +85,22 @@
 										<h2>Delivery details</h2>
 										<div class="woocommerce-billing-fields__field-wrapper">
 											<p class="form-row-first">
-                                                <input type="text" class="input-text " value="{{ old('fullName') }}"  name="fullName"  id="billing_first_name" placeholder="Full Name *"  >
+                                                <span style="color:black">Name:</span>
+                                                <input type="text" class="input-text " value="{{ $user->name }}"  name="fullName"  id="billing_first_name" placeholder="Full Name *"  >
                                                 @if ($errors->has('fullName'))
                                                     <small class="badge badge-danger">{{$errors->first('fullName')}}</small>
                                                 @endif
                                             </p>
-                                            <p class="form-row-wide">
-                                                <input type="text" class="input-text "  value="{{ old('location') }}" name="location" id="billing_location" placeholder="Location *" >
+                                            <p class="form-row-first">
+                                                <span style="color:black">Your Location:</span>
+                                                <input type="text" class="input-text "  value="{{ $user->location }}" name="location" id="billing_location" placeholder="Location *" >
                                                 @if ($errors->has('location'))
                                                     <small class="badge badge-danger">{{$errors->first('location')}}</small>
                                                 @endif
                                             </p>
                                             <p class="form-row-first">
-                                                <input type="tel" class="input-text " value="{{ old('phone') }}" name="phone" id="billing_phone" placeholder="Phone *" >
+                                                <span style="color:black">Your Phone:</span>
+                                                <input type="tel" class="input-text " value="{{ $user->phone }}" name="phone" id="billing_phone" placeholder="Phone *" >
                                                 @if ($errors->has('phone'))
                                                     <small class="badge badge-danger">{{$errors->first('phone')}}</small>
                                                 @endif

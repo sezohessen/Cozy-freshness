@@ -21,9 +21,9 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products           = Product::all()->sortByDesc("id");
+        $products           = Product::orderBy('id','desc')
+        ->paginate(10);
         $product_picture    = product_picture::all();
-
         return view('admin.products.index',compact('products','product_picture'));
     }
 

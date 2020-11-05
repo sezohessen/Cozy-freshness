@@ -8,6 +8,8 @@ use App\Order;
 use App\Product;
 use App\User;
 use App\Setting;
+use Pusher\Pusher;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -43,7 +45,11 @@ class HomeController extends Controller
         ->orderBy('created_at','desc')
         ->get();
         $setting = Setting::orderBy('id', 'DESC')->get()->first();
+
+
         return view('admin.dashboard',compact('users','categories','products','pending',
         'shipped','deliverd','canceled',"setting"));
     }
+
+
 }
