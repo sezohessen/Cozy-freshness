@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => __('Edit Category')])
 
 @section('content')
-    @include('admin.users.partials.header', ['title' => __('Edit Category')])   
+    @include('admin.users.partials.header', ['title' => __('Edit Category')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -20,6 +20,7 @@
                     <div class="card-body">
                         <form action="{{ route('categories.update',$category->id) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                             @csrf
+                            @method('PATCH')
                             <input type="hidden" name="admin" value="0">
                             <h6 class="heading-small text-muted mb-4">{{ __('Category information') }}</h6>
                             <div class="pl-lg-4">
@@ -35,7 +36,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
                                     <label for="description">{{ __('Description') }}</label>
-                                    <textarea name="description" class="form-control" id="description" rows="3" 
+                                    <textarea name="description" class="form-control" id="description" rows="3"
                                     placeholder="{{ __('Description') }}" >{{ $category->description }}</textarea>
                                     @if ($errors->has('description'))
                                     <span class="invalid-feedback" role="alert">
@@ -49,7 +50,7 @@
                                     @if ($errors->has('picture'))
                                     <small class="badge badge-danger">{{$errors->first('picture','The Photo is required.')}}</small>
                                     @endif
-                                </div>  
+                                </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>

@@ -18,14 +18,7 @@
                         <div class="h5 font-weight-300">
                             {{ auth()->user()->email }}
                         </div>
-                        <ul class="profile-user">
-                            <li><a href="#">My Orders</a></li>
-                            <li><a href="#">Wish List</a></li>
-                            <li><a href="{{ route('cart.tracking') }}">Tracking order</a></li>
-                        </ul>
-                        <hr class="my-4" />
-                        <p>{{ __('Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.') }}</p>
-                        <a href="#">{{ __('Show more') }}</a>
+
                     </div>
                 </div>
             </div>
@@ -74,7 +67,26 @@
                                     </span>
                                 @endif
                             </div>
+                            <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
+                                <label class="form-control-label" for="input-name">{{ __('Your Phone') }}</label>
+                                <input type="text" name="phone" id="input-name" class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="{{ __('Your Phone') }}" value="{{ old('phone', auth()->user()->phone) }}" required autofocus>
 
+                                @if ($errors->has('phone'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
+                                <label class="form-control-label" for="input-name">{{ __('Your Location') }}</label>
+                                <input type="text" name="location" id="input-name" class="form-control form-control-alternative{{ $errors->has('location') ? ' is-invalid' : '' }}" placeholder="{{ __('Your Location') }}" value="{{ old('location', auth()->user()->location) }}" required autofocus>
+
+                                @if ($errors->has('location'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('location') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                             </div>

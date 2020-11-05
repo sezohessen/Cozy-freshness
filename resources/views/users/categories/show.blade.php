@@ -4,14 +4,14 @@
 		<!-- Breadcrumb Section -->
         <section class="breadcrumb-contact-us breadcrumb-section section-box"
         @if (isset($category_info))
-            style="background-image: url({{asset('uploads/categories/'.$category_info->picture)}})"
+            style="background-image: url({{Storage::url($category_info->picture)}})"
         @else
             style="background-image: url({{asset('images/shop-bc.jpg')}})"
         @endif
         >
 			<div class="container">
 				<div class="breadcrumb-inner">
-					<h1>
+					<h1 style="color:white" >
                         @if (isset($category_info))
                             {{$category_info->name}}
                         @else
@@ -28,7 +28,7 @@
                             @endif
                         </li>
                     </ul>
-                    <p>
+                    <p  style="color:white" >
                         @if (isset($category_info))
                         {{$category_info->description}}
                         @else
@@ -103,11 +103,11 @@
                                     <div class="col-md-3">
                                         <div class="product type-product">
                                             <div class="woocommerce-LoopProduct-link">
-                                                <div class="product-image">
-                                                    <div class="wp-post-image">
-                                                        <img class="image-cover" src="{{asset('uploads/products/'.$product->pictures[0]->picture)}}" alt="{{$product->name}}">
+                                                <div class="product-image"  style="cursor:pointer">
+                                                    <div class="wp-post-image"  >
+                                                        <img class="image-cover" src="{{Storage::url($product->pictures[0]->picture)}}" alt="{{$product->name}}">
                                                         @if (isset($product->pictures[1]->picture))
-                                                            <img class="image-secondary" src="{{asset('uploads/products/'.$product->pictures[1]->picture)}}" alt="{{$product->name}}">
+                                                            <img class="image-secondary" src="{{Storage::url($product->pictures[1]->picture)}}" alt="{{$product->name}}">
                                                         @endif
                                                     </div>
                                                     @if ($product->discount!=0||$product->discount!=NULL)

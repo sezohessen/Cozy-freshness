@@ -1,8 +1,10 @@
 @extends('layouts.app', ['title' => __('User Management')])
 
 @section('content')
-    @include('layouts.headers.cards')
 
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid" style="padding-top: 60px">
+        <div class="header-body">
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col">
@@ -86,6 +88,11 @@
             </div>
         </div>
 
-        @include('layouts.footers.auth')
+
     </div>
+        </div>
+    </div>
+</div>
+    @include('layouts.footers.auth')
+</div>
 @endsection

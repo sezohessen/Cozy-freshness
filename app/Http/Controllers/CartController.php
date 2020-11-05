@@ -7,6 +7,7 @@ use App\Category;
 use App\Order;
 use App\Order_product;
 use App\Product;
+use App\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,14 +27,17 @@ class CartController extends Controller
       ->whereHas('products', function ($query) {
         return $query->where('active', 1);
       })
-      ->take(6)
+      ->take(5)
       ->get();
     }
     public function index()
     {
         $categories = $this->categories;
-        $title      = 'Novas | cart';
-        return view('users.carts.index',compact('title','categories'));
+        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->appname."| Cart" :
+        "Cozy | Cart";
+        $setting=Setting::orderBy('id', 'DESC')->get()->first();
+        return view('users.carts.index',compact('title','categories',"setting"));
     }
 
     /**
@@ -145,7 +149,9 @@ class CartController extends Controller
     }
     public function checkOut(Request $request)
     {
-        $title      = 'Novas | Checkout';
+        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->appname."| Checkout" :
+        "Cozy | Checkout";
         if(!Auth::user()){
             return redirect()->route('login');
         }else{

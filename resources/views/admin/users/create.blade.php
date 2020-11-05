@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => __('User Management')])
 
 @section('content')
-    @include('admin.users.partials.header', ['title' => __('Add User')])   
+    @include('admin.users.partials.header', ['title' => __('Add User')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -43,10 +43,30 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Your Phone') }}</label>
+                                    <input type="text" name="phone" id="input-name" class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="{{ __('Your Phone') }}" value="{{ old('phone') }}" required autofocus>
+
+                                    @if ($errors->has('phone'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('phone') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Your Location') }}</label>
+                                    <input type="text" name="location" id="input-name" class="form-control form-control-alternative{{ $errors->has('location') ? ' is-invalid' : '' }}" placeholder="{{ __('Your Location') }}" value="{{ old('location') }}" required autofocus>
+
+                                    @if ($errors->has('location'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('location') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-password">{{ __('Password') }}</label>
                                     <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="" required>
-                                    
+
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -67,7 +87,7 @@
                 </div>
             </div>
         </div>
-        
+
         @include('layouts.footers.auth')
     </div>
 @endsection

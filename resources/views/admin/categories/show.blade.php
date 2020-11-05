@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => __('Category')])
 
 @section('content')
-    @include('admin.users.partials.header', ['title' => __('Categories ')])   
+    @include('admin.users.partials.header', ['title' => __('Categories ')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card mb-3">
-                            <img class="card-img-top" src="{{asset('uploads/categories/'.$category->picture)}}" alt="Card image cap" width="100%" height="400px">
+                            <img class="card-img-top" src="{{Storage::url($category->picture)}}" alt="Card image cap" width="100%" height="400px">
                             <div class="card-body">
                                 <h1 class="card-title">{{$category->name}}</h1>
                                 <p class="card-text">{{$category->description}}</p>
@@ -35,19 +35,19 @@
                             <div class="card border-dark col-4">
                                 <div class="card-header"> <a href="{{route('products.show',$product->id)}}">{{$product->name}}</a></div>
                                 <div class="card-body text-dark">
-                                    <img src="{{asset('uploads/products/'.$product->pictures[0]->picture)}}" alt="{{$product->pictures[0]->picture}}" class="img-fluid img-thumbnail">   
+                                    <img src="{{ Storage::url($product->pictures[0]->picture)}}" alt="{{$product->pictures[0]->picture}}" class="img-fluid img-thumbnail">
                                     <h5 class="card-title"><strong>Price :{{$product->price}}$</strong></h5>
                                     <p class="card-text">{{$product->description}}</p>
                                 </div>
                                 <a href="{{route('products.show',$product->id)}}" class="btn btn-primary">More</a>
-                            </div>                              
+                            </div>
                           @endforeach
                           </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         @include('layouts.footers.auth')
     </div>
 @endsection

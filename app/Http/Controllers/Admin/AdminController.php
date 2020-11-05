@@ -16,13 +16,14 @@ class AdminController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('owner');
+        $this->middleware('auth');
     }
 
     public function index()
     {
         $auth_id = Auth::user()->id;
-        $users = User::where('admin', 1)->whereNotIn('id', [$auth_id] )->orderBy('id', 'desc')->paginate(15);
+        $users = User::where('admin', 1)->orderBy('id', 'desc')->paginate(15);
+        //->whereNotIn('id', [$auth_id] )
         return view('admin.admins.index', ['users' => $users]);
     }
 

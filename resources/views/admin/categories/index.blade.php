@@ -1,7 +1,9 @@
 @extends('layouts.app', ['title' => __('User Management')])
 
 @section('content')
-    @include('layouts.headers.cards')
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
     @if ($categories->count())
     <div class="container-fluid mt--7">
         <div class="row">
@@ -17,7 +19,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12">
                         @if (session('status'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -44,7 +46,7 @@
                                 @foreach ($categories as $category)
                                     <tr>
                                         <td>
-                                            <img src="{{asset('uploads/categories/'.$category->picture)}}" alt="{{$category->picture}}" class="img-fluid img-thumbnail" width="100px" height="100px">
+                                            <img src="{{Storage::url($category->picture)}}" alt="{{$category->picture}}" class="img-fluid img-thumbnail" width="100px" height="100px">
                                         </td>
                                         <td>
                                             <p>{{$category->name}}</p>
@@ -64,7 +66,7 @@
                                                 </a>
                                             @endif
                                         </td>
-                                        <td> 
+                                        <td>
                                             <a href="{{route('categories.show',$category->id)}}">
                                                 <button class="btn">See More</button>
                                             </a>
@@ -78,14 +80,13 @@
                                                 <form action="{{ route('categories.destroy', $category->id) }}" method="GET">
                                                     @csrf
                                                     @method('delete')
-                                                    
+
                                                     <a class="dropdown-item" href="{{ route('categories.edit', $category->id) }}">{{ __('Edit') }}</a>
                                                     <a class="dropdown-item" href="{{ route('categories.destroy', $category->id) }}" onclick="return confirm('Are you sure?')">{{ __('Delete') }}</a>
                                                 </form>
-                                                </div>
                                             </div>
                                         </td>
-                                    </tr> 
+                                    </tr>
                                 @endforeach
 
                             </tbody>
@@ -94,14 +95,22 @@
                 </div>
             </div>
         </div>
-            
-        @include('layouts.footers.auth')
+
+
     </div>
     @else
     <div class="text-center" style="margin: 50px 0 ">
         <h1>There is no categories to be showen </h1>
         <a href="{{route('categories.create')}}"> <button type="button" class="btn btn-primary">Create Category</button></a>
     </div>
-        
+
     @endif
+
+            </div>
+         </div>
+
+    </div>
+
+@include('layouts.footers.auth')
+</div>
 @endsection

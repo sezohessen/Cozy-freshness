@@ -8,7 +8,7 @@
 	                <!-- BEGIN SLIDE 1 -->
 	                <li data-transition="boxslide">
 	                    <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
-	                    <img src="{{asset('uploads/categories/'.$first_Slider->picture)}}" alt="{{asset($first_Slider->picture)}}" class="rev-slidebg">
+	                    <img src="{{Storage::url($first_Slider->picture)}}" alt="{{asset($first_Slider->picture)}}" class="rev-slidebg">
 
 	                    <!-- BEGIN LAYER -->
 	                    <div class="tp-caption tp-resizeme slide-caption-title-1"
@@ -25,7 +25,7 @@
 							data-whitespace="normal"
 							data-basealign="slide"
 							data-responsive_offset="off" >
-							BEST SELLERS
+							{{ App\Setting::orderBy('id', 'DESC')->get()->first()->appname}}
 	                	</div>
 	                    <div class="tp-caption tp-resizeme slide-caption-title-2"
 	                        data-frames='[{"delay":1000,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"y:-20px;opacity:0;","ease":"Power3.easeInOut"}]'
@@ -41,7 +41,7 @@
 							data-whitespace="normal"
 							data-basealign="slide"
 							data-responsive_offset="off" >
-							<span>SOFA</span> COLLECTION
+							{{$first_Slider->name}}
 	                	</div>
 	                	<div class="tp-caption tp-resizeme slide-caption-title-3"
 	                        data-frames='[{"delay":0,"speed":300,"frame":"0","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
@@ -98,7 +98,7 @@
 					<!-- BEGIN SLIDE 2 -->
 	                <li data-transition="boxslide">
 	                    <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
-	                    <img src="{{asset('uploads/categories/'.$second_Slider->picture)}}" alt="{{asset($second_Slider->picture)}}" class="rev-slidebg">
+	                    <img src="{{ Storage::url($second_Slider->picture)}}" alt="{{asset($second_Slider->picture)}}" class="rev-slidebg">
 
 	                    <!-- BEGIN LAYER -->
 	                    <div class="tp-caption tp-resizeme slide-caption-title-1"
@@ -115,7 +115,7 @@
 							data-whitespace="normal"
 							data-basealign="slide"
 							data-responsive_offset="off" >
-							BEST SELLERS
+							{{ App\Setting::orderBy('id', 'DESC')->get()->first()->appname}}
 	                	</div>
 	                    <div class="tp-caption tp-resizeme slide-caption-title-2"
 	                        data-frames='[{"delay":1000,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"y:-20px;opacity:0;","ease":"Power3.easeInOut"}]'
@@ -131,7 +131,7 @@
 							data-whitespace="normal"
 							data-basealign="slide"
 							data-responsive_offset="off" >
-							<span>SOFA</span> COLLECTION
+							{{$second_Slider->name}}
 	                	</div>
 	                	<div class="tp-caption tp-resizeme slide-caption-title-3"
 	                        data-frames='[{"delay":0,"speed":300,"frame":"0","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
@@ -188,7 +188,7 @@
 	                <!-- BEGIN SLIDE 3 -->
 	                <li data-transition="boxslide">
 	                    <!-- SLIDE'S MAIN BACKGROUND IMAGE -->
-	                    <img src="{{asset('uploads/categories/'.$third_Slider->picture)}}" alt="{{asset('uploads/categories/'.$third_Slider->picture)}}" class="rev-slidebg">
+	                    <img src="{{ Storage::url($third_Slider->picture)}}" alt="{{asset('uploads/categories/'.$third_Slider->picture)}}" class="rev-slidebg">
 
 	                    <!-- BEGIN LAYER -->
 	                    <div class="tp-caption tp-resizeme slide-caption-title-1"
@@ -205,7 +205,7 @@
 							data-whitespace="normal"
 							data-basealign="slide"
 							data-responsive_offset="off" >
-							BEST SELLERS
+							{{ App\Setting::orderBy('id', 'DESC')->get()->first()->appname}}
 	                	</div>
 	                    <div class="tp-caption tp-resizeme slide-caption-title-2"
 	                        data-frames='[{"delay":1000,"speed":1000,"frame":"0","from":"y:-50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"y:-20px;opacity:0;","ease":"Power3.easeInOut"}]'
@@ -221,7 +221,7 @@
 							data-whitespace="normal"
 							data-basealign="slide"
 							data-responsive_offset="off" >
-							<span>SOFA</span> COLLECTION
+							{{$third_Slider->name}}
 	                	</div>
 	                	<div class="tp-caption tp-resizeme slide-caption-title-3"
 	                        data-frames='[{"delay":0,"speed":300,"frame":"0","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
@@ -288,7 +288,7 @@
 						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 							<div class="categories-detail">
 								<a href="{{route('shop.category',['id' => $first_Slider->id,'slug' => str_slug($first_Slider->name)])}}" class="images">
-                                    <img src="{{asset('uploads/categories/'.$first_Slider->picture)}}" alt="{{$first_Slider->name}}">
+                                    <img src="{{ Storage::url($first_Slider->picture)}}" alt="{{$first_Slider->name}}">
                                 </a>
 								<div class="product">
 									<a href="{{route('shop.category',['id' => $first_Slider->id,'slug' => str_slug($first_Slider->name)])}}">
@@ -305,7 +305,7 @@
 						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 							<div class="categories-detail">
 								<a href="{{route('shop.category',['id' => $second_Slider->id,'slug' => str_slug($second_Slider->name)])}}" class="images">
-                                    <img src="{{asset('uploads/categories/'.$second_Slider->picture)}}" alt="{{$second_Slider->name}}">
+                                    <img src="{{ Storage::url($second_Slider->picture)}}" alt="{{$second_Slider->name}}">
                                 </a>
 								<div class="product">
 									<a href="{{route('shop.category',['id' => $second_Slider->id,'slug' => str_slug($second_Slider->name)])}}">
@@ -322,7 +322,7 @@
 						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 							<div class="categories-detail">
 								<a href="{{route('shop.category',['id' => $third_Slider->id,'slug' => str_slug($third_Slider->name)])}}" class="images">
-                                    <img src="{{asset('uploads/categories/'.$third_Slider->picture)}}" alt="{{$third_Slider->name}}">
+                                    <img src="{{ Storage::url($third_Slider->picture)}}" alt="{{$third_Slider->name}}">
                                 </a>
 								<div class="product">
 									<a href="{{route('shop.category',['id' => $third_Slider->id,'slug' => str_slug($third_Slider->name)])}}">

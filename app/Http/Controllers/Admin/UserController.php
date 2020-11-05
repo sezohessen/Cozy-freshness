@@ -18,19 +18,8 @@ class UserController extends Controller
     public function index(User $model)
     {
         $users      = User::all();
-        $categories = Category::all();
-        $products   = Product::all();
-        $pending            = Order::where('status','pending')
-        ->orderBy('created_at','desc')
-        ->get();
-        $deliverd            = Order::where('status','delivered')
-        ->orderBy('created_at','desc')
-        ->get();
-        $canceled            = Order::where('status','canceled')
-        ->orderBy('created_at','desc')
-        ->get();
-        return view('admin.users.index', compact('users','categories','products','pending',
-        'deliverd','canceled'));
+
+        return view('admin.users.index', compact('users'));
     }
 
     public function create()
@@ -56,6 +45,8 @@ class UserController extends Controller
             'name' => 'required|string|min:5|max:30',
             'email' => 'required|email',
             'password' => 'nullable|min:6|confirmed',
+            "phone"=>'numeric|digits:11|required',
+            "location"=>'max:255|required'
         ];
 
         $this->validate($request, $rules);

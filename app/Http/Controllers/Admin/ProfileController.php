@@ -6,7 +6,7 @@ use App\Category;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
-
+use App\Setting;
 use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
@@ -18,7 +18,9 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $title = 'Novas | My Profile';
+        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->appname."| Profile" :
+        "Cozy | Profile";
         $categories = Category::active()
         ->orderBy('created_at', 'desc')
         ->whereHas('products', function ($query) {

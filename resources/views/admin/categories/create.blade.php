@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => __('Add Category')])
 
 @section('content')
-    @include('admin.users.partials.header', ['title' => __('Add Category')])   
+    @include('admin.users.partials.header', ['title' => __('Add Category')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -48,7 +48,7 @@
                                     @if ($errors->has('picture'))
                                     <small class="badge badge-danger">{{$errors->first('picture','The Photo is required.')}}</small>
                                     @endif
-                                </div>  
+                                </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Add') }}</button>
                                 </div>
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        
+
         @include('layouts.footers.auth')
     </div>
 @endsection

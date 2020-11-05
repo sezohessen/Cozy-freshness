@@ -20,6 +20,7 @@
                     <div class="card-body product-create">
                         <form action="{{ route('products.update',$product->id) }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                             @csrf
+                            @method('PATCH')
                             <input type="hidden" name="admin" value="0">
                             <h6 class="heading-small text-muted mb-4">{{ __('Product information') }}</h6>
                             <div class="pl-lg-4">

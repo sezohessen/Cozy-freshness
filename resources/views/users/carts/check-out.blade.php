@@ -43,7 +43,7 @@
                                             @endif
                                                 <tr class="cart_item">
                                                     <td class="product-name">
-                                                        <img src="{{ asset('uploads/products/'.$product->pictures[0]->picture) }}" alt="product">
+                                                        <img src="{{ Storage::url($product->pictures[0]->picture)}}" alt="product">
                                                         <div class="review-wrap">
                                                             <span class="cart_item_title">{{ $product->name }}</span>
                                                             <span class="product-quantity">x{{ $cart_info['quantity'] }}</span>

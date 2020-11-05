@@ -7935,3 +7935,14 @@ textarea:-moz-placeholder {
     width: 55px; } }
 
 /*# sourceMappingURL=style.css.map */
+/******************* */
+.header-hp-1 .menu-desktop-inner .logo {
+    padding:14px 0 30px;
+}
+.logo-brand-span {
+    font-size: 23px;
+    line-height: 2;
+    font-family: serif;
+    font-weight: 700;
+    color: #81743f;
+}

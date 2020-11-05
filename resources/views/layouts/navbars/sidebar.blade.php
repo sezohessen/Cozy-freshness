@@ -6,7 +6,8 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <img src="{{isset($setting->logo) ? Storage::url($setting->logo) : asset('Constant_Images/Cozy.png')}}" alt="logo"
+            width="100"style="border-radius: 50%">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -78,35 +79,45 @@
             </form>
             <!-- Navigation -->
             <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('Ecommerce') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Website') }}
+                        <i class="ni ni-planet text-primary"></i>
+                {{
+                           !empty(App\Setting::orderBy('id', 'DESC')->get()->first())?
+                           App\Setting::orderBy('id', 'DESC')->get()->first()->appname :
+                        "Cozy "
+                 }}
                     </a>
                 </li>
+                @if(auth()->user()->admin == 1)
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#admin" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                            <i class="fas fa-user-secret" style="color: #f4645f;"></i>
+                            <span class="nav-link-text" style="color: #f4645f;">{{ __('Admin') }}</span>
+                        </a>
 
-                @if(strtolower(auth()->user()->email) == "soltan_algaram41@yahoo.com")
-                <li class="nav-item">
-                    <a class="nav-link active" href="#admin" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fas fa-user-secret" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Admin') }}</span>
-                    </a>
+                        <div class="collapse show" id="admin">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admins.create') }}">
+                                        {{ __('New Admin') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admins.index') }}">
+                                        {{ __('Admin Management') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <div class="collapse show" id="admin">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admins.create') }}">
-                                    {{ __('New Admin') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admins.index') }}">
-                                    {{ __('Admin Management') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </li>
+                    </li>
                 @endif
 
                 <li class="nav-item">
@@ -132,31 +143,35 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Courses') }}
+                    <a class="nav-link" href="{{route("categories")}}">
+                        <i class="fa fa-list-alt text-blue"></i> {{ __('Categories') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('CATEGORIES') }}
+                    <a class="nav-link" href="{{route("products")}}">
+                        <i class="fas fa-tag text-blue"></i> {{ __('Products') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('PRODUCTS') }}
+                    <a class="nav-link" href="{{route("orders",['status'=>"pending"])}}">
+                        <i class="ni ni-send text-yellow"></i> {{ __('Pending Orders') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Comments') }}
+                    <a class="nav-link" href="{{route("orders",['status'=>"delivered"])}}">
+                        <i class="ni ni-check-bold text-green"></i> {{ __('Deliverd Orders') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('ORDERS') }}
+                    <a class="nav-link" href="{{route("orders",['status'=>"canceled"])}}">
+                        <i class="ni ni-fat-remove text-red"></i> {{ __('Canceld Orders') }}
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route("settings")}}">
+                        <i class="ni ni-settings-gear-65 text-grey"></i> {{ __('Settings') }}
+                    </a>
+                </li>
             </ul>
             <!-- Divider -->
             <hr class="my-3">

@@ -9,7 +9,7 @@ use App\product_picture;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Setting;
 class HomeController extends Controller
 {
 
@@ -25,10 +25,13 @@ class HomeController extends Controller
     }
 
 	public function index() {
-        $title = 'Novas';
+        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->appname:
+        "Cozy";
         $first_Slider       = Category::active()
         ->orderBy('created_at','desc')
         ->first();
+
         $second_Slider      = Category::active()
         ->orderBy('created_at','desc')
         ->skip(1)
@@ -57,7 +60,9 @@ class HomeController extends Controller
     }
     public function shop(Request $Request)
     {
-        $title = 'Novas | Shop';
+        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->appname."| Shop" :
+        "Cozy | Shop";
         //dd($Request);
         //Can not passing  $Request->order in orderBy
         //Like orderBy('new_price',$Request->order)  --->> vulnerable SQL Injection
@@ -112,7 +117,7 @@ class HomeController extends Controller
             return $query->where('active', 1);
         })
         ->get();
-        return view('users.categories.show',compact('title','categories','products','product_picture','all_product',
+        return view('users.categories.show',compact('title','categories','products','product_picture','all_product'
         ));
     }
     public function SpecificCateg(Request $Request,$id, $slug)

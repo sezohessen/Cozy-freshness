@@ -39,7 +39,7 @@
 									<div class="owl-carousel">
                                         @foreach ( $product_pictures as $product_picture)
                                             <div class="item">
-                                                <img src="{{asset('uploads/products/'.$product_picture->picture)}}" alt="product">
+                                                <img src="{{Storage::url($product_picture->picture)}}" alt="product">
                                             </div>
                                         @endforeach
 									</div>
@@ -195,7 +195,7 @@
                                                         @foreach ($comments as $comment)
                                                             <div class="comment-item">
                                                                 <div class="comment-content">
-                                                                    <img src="{{asset('images/shop-single-v1-4.jpg')}}" alt="customer">
+                                                                    <img src="{{ asset('images/shop-single-v1-4.jpg')}}" alt="customer">
                                                                     <div class="comment-body">
                                                                         <div class="comment-author">
                                                                             <span class="author">{{ $comment->user->name }}</span>
@@ -282,10 +282,10 @@
                                             <div class="product type-product">
                                                 <div class="woocommerce-LoopProduct-link">
                                                     <div class="product-image">
-                                                        <a href="{{route('shop.product',['id' => $product->id ,'slug' => str_slug($product->name)])}}" class="wp-post-image">
-                                                            <img class="image-cover" src="{{asset('uploads/products/'.$product->pictures[0]->picture)}}" alt="{{$product->name}}">
+                                                        <a href="{{route('shop.product',['id' => $product->id ,'slug' => str_slug($product->name)])}}" class="wp-post-image" >
+                                                            <img class="image-cover" src="{{Storage::url($product->pictures[0]->picture)}}" alt="{{$product->name}}">
                                                             @if (isset($product->pictures[1]->picture))
-                                                                <img class="image-secondary" src="{{asset('uploads/products/'.$product->pictures[1]->picture)}}" alt="{{$product->name}}">
+                                                                <img class="image-secondary" src="{{ Storage::url($product->pictures[1]->picture)}}" alt="{{$product->name}}">
                                                             @endif
                                                         </a>
                                                         @if ($product->inStock==0||$product->inStock==NULL)

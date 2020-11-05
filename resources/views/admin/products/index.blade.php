@@ -1,7 +1,9 @@
 @extends('layouts.app', ['title' => __('User Management')])
 
 @section('content')
-    @include('layouts.headers.cards')
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
     @if ($products->count())
     <div class="container-fluid mt--7">
         <div class="row">
@@ -45,7 +47,7 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td>
-                                            <img src="{{asset('uploads/products/'.$product->pictures->first()->picture)}}" alt="{{$product->name}}" class="img-fluid img-thumbnail" width="100px" height="100px">
+                                            <img src="{{ Storage::url($product->pictures->first()->picture)}}" alt="{{$product->name}}" class="img-fluid img-thumbnail" width="100px" height="100px">
                                         </td>
                                         <td>
                                             <p>{{$product->name}}</p>
@@ -95,7 +97,7 @@
             </div>
         </div>
 
-        @include('layouts.footers.auth')
+
     </div>
     @else
     <div class="text-center" style="margin: 50px 0 ">
@@ -104,4 +106,10 @@
     </div>
 
     @endif
+
+        </div>
+    </div>
+</div>
+@include('layouts.footers.auth')
+</div>
 @endsection

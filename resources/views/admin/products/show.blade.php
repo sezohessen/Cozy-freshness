@@ -23,13 +23,13 @@
                                 @foreach ($product_pictures as $key => $product_picture)
                                         @if ($key==0)
                                             <div class="col-12">
-                                                <img class="card-img-top" src="{{asset('uploads/products/'.$product_picture->picture)}}"
+                                                <img class="card-img-top" src="{{Storage::url($product_picture->picture)}}"
                                                 alt="Card image cap" width="100%" height="500px">
                                                 <hr>
                                             </div>
                                         @else
                                             <div class="col-4">
-                                                <img src="{{asset('uploads/products/'.$product_picture->picture)}}"
+                                                <img src="{{Storage::url($product_picture->picture) }}"
                                                 alt="Card image cap" width="100%">
                                             </div>
                                         @endif

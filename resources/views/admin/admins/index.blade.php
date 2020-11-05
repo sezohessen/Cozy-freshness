@@ -1,7 +1,9 @@
 @extends('layouts.app', ['title' => __('Admin Management')])
 
 @section('content')
-    @include('layouts.headers.cards')
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -17,7 +19,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12">
                         @if (session('status'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -57,12 +59,12 @@
                                                         <form action="{{ route('admins.destroy', $user) }}" method="post">
                                                             @csrf
                                                             @method('delete')
-                                                            
+
                                                             <a class="dropdown-item" href="{{ route('admins.edit', $user) }}">{{ __('Edit') }}</a>
                                                             <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
                                                                 {{ __('Delete') }}
                                                             </button>
-                                                        </form>    
+                                                        </form>
                                                     @else
                                                         <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Edit') }}</a>
                                                     @endif
@@ -78,11 +80,14 @@
                         <nav class="d-flex justify-content-end" aria-label="...">
                             {{ $users->links() }}
                         </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-            
+    </div>
+</div>
+</div>
         @include('layouts.footers.auth')
     </div>
 @endsection

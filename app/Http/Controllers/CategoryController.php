@@ -8,6 +8,7 @@ use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Storage;
 class CategoryController extends Controller
 {
     /**
@@ -17,20 +18,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $users      = User::all();
         $categories = Category::all()->sortByDesc("id");
-        $products   = Product::all();
-        $pending            = Order::where('status','pending')
-        ->orderBy('created_at','desc')
-        ->get();
-        $deliverd            = Order::where('status','delivered')
-        ->orderBy('created_at','desc')
-        ->get();
-        $canceled            = Order::where('status','canceled')
-        ->orderBy('created_at','desc')
-        ->get();
-        return view('admin.categories.index',compact('categories','users','products','pending',
-        'deliverd','canceled'));
+        return view('admin.categories.index',compact('categories'));
+
     }
 
     /**
@@ -51,15 +41,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
             'name'         =>  'required',
             'description'  =>  'required|max:255',
-            'picture'      =>  'required',
-            'picture.*'    =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'picture'      =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $featrued = $request->picture;
-        $featrued_new_name = time().rand(11111,99999).$featrued->getClientOriginalName();
-        $featrued->move('uploads/categories/',$featrued_new_name);
+        $featrued_new_name=request()->file('picture')->store('categories');
         $post = Category::create([
             'name'          =>  $request->name,
             'description'   =>  $request->description,
@@ -78,20 +66,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::all();
-        $comments   = Comment::all();
         $category   = Category::find($id);
         $products   = Product::where('category_id', $id)
         ->orderBy('id', 'desc')
         ->get();
-        $orders         = Order::where('status','withApproval')
-        ->orderBy('created_at','desc')
-        ->get();
-        $shipped    = Order::where('status','shipped')
-        ->orderBy('created_at','desc')
-        ->get();
-        return view('admin.categories.show',compact('category','categories','products','comments','orders',
-        'shipped'));
+        return view('admin.categories.show',compact('category','products'));
     }
 
     /**
@@ -119,24 +98,16 @@ class CategoryController extends Controller
         $this->validate($request,[
             'name'         =>  'required',
             'description'  =>  'required|max:255',
-            'picture.*'    =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'picture'    =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $this->handleUploadedImage($request,$request->file('picture'),$category);
+        $featrued_new_name=request()->file('picture')->store('categories');
+        Storage::delete($category->picture);
         $category->name        =   $request->name;
         $category->description =   $request->description;
-
+        $category->picture=$featrued_new_name;
         $category->save();
         session()->flash('status', 'The Category has been updated!');
         return redirect()->route('categories');
-    }
-    public function handleUploadedImage($request,$image,$category)
-    {
-        if (!is_null($image)) {
-            $featrued = $request->picture;
-            $featrued_new_name = time().rand(11111,99999).$featrued->getClientOriginalName();
-            $featrued->move('uploads/categories/',$featrued_new_name);
-            $category->picture = $featrued_new_name;
-        }
     }
     public function activation($id)
     {
@@ -158,6 +129,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
+        Storage::delete($category->picture);
         $category->delete($id);
         session()->flash('status', 'The Category has been Destroyed!');
         return redirect()->route('categories');

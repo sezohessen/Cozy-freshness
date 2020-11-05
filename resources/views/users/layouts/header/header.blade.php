@@ -4,7 +4,7 @@
 	<!-- Basic Page Needs
 	================================================== -->
 	<meta charset="utf-8">
-	<title>{{ $title }}</title>
+	<title>{{ $title ?? "Cozy" }}</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<!-- Mobile Specific Metas
@@ -41,6 +41,7 @@
     <!-- Main Style Css -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}"/>
 </head>
+<?php     $setting = App\Setting::orderBy('id', 'DESC')->get()->first();?>
 <body class="homepages-1">
 	<!-- Images Loader -->
 	<div class="images-preloader">
@@ -60,7 +61,13 @@
 					<div class="menu-desktop-inner">
 						<!-- Logo -->
 						<div class="logo">
-							<a href="{{ route('Ecommerce') }}"><img src="{{asset('images/icons/logo-black.png')}}" alt="logo"></a>
+                            <a href="{{route("Ecommerce")}}"><img src="{{isset($setting->logo) ? Storage::url($setting->logo) : asset('Constant_Images/Cozy.png')}}" alt="logo"
+                                width="60" height="60" style="border-radius: 50%">
+                                &nbsp;
+                                <span  class="logo-brand-span">
+                                    {{$setting->appname ?? "Cozy"}}
+                                </span>
+                            </a>
 						</div>
 						<!-- Main Menu -->
 						<nav class="main-menu">
@@ -110,10 +117,12 @@
                                                 <a href="{{ route('profile.edit') }}">Account Settings</a>
                                             </li>
                                             <li>
-                                                <form action="{{ route('logout') }}" method="POST">
+                                                <form  id="form1" action="{{ route('logout') }}" method="POST">
                                                     @csrf
-                                                    <a href="{{ route('logout') }}"><button type="submit" class="btn logout">logout</button></a>
+                                                   <a href="javascript:;" onclick="document.getElementById('form1').submit();">{{__("Logout")}}</a>
                                                 </form>
+
+
 
                                             </li>
                                         </ul>
@@ -161,7 +170,7 @@
                                             ?>
                                             <li class="woocommerce-mini-cart-item mini_cart_item clearfix">
 												<a class="product-image" href="#">
-                                                    <img src="{{ asset('uploads/products/'.$product->pictures[0]->picture) }}" alt="cart-1">
+                                                    <img src="{{ Storage::url($product->pictures[0]->picture)}}" alt="cart-1">
 												</a>
 												<a class="product-title" href="#">{{ $product->name }}</a>
 												<span class="quantity">

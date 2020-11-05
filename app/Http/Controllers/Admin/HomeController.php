@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use App\Product;
 use App\User;
-
+use App\Setting;
 class HomeController extends Controller
 {
     /**
@@ -33,13 +33,17 @@ class HomeController extends Controller
         $pending            = Order::where('status','pending')
         ->orderBy('created_at','desc')
         ->get();
+        $shipped            = Order::where('status','shipped')
+        ->orderBy('created_at','desc')
+        ->get();
         $deliverd            = Order::where('status','delivered')
         ->orderBy('created_at','desc')
         ->get();
         $canceled            = Order::where('status','canceled')
         ->orderBy('created_at','desc')
         ->get();
-        return view('admin.dashboard',compact('users','categories','products','pending'
-        ,'deliverd','canceled'));
+        $setting = Setting::orderBy('id', 'DESC')->get()->first();
+        return view('admin.dashboard',compact('users','categories','products','pending',
+        'shipped','deliverd','canceled',"setting"));
     }
 }

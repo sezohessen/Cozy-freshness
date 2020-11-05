@@ -10,7 +10,7 @@ use App\Product;
 use App\product_picture;
 use App\User;
 use Illuminate\Http\Request;
-
+use Storage;
 class ProductController extends Controller
 {
     /**
@@ -20,21 +20,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $users              = User::all();
-        $categories         = Category::all();
+
         $products           = Product::all()->sortByDesc("id");
         $product_picture    = product_picture::all();
-        $pending            = Order::where('status','pending')
-        ->orderBy('created_at','desc')
-        ->get();
-        $deliverd            = Order::where('status','delivered')
-        ->orderBy('created_at','desc')
-        ->get();
-        $canceled            = Order::where('status','canceled')
-        ->orderBy('created_at','desc')
-        ->get();
-        return view('admin.products.index',compact('categories','users','products','product_picture',
-        'pending','deliverd','canceled'));
+
+        return view('admin.products.index',compact('products','product_picture'));
     }
 
     /**
@@ -65,14 +55,10 @@ class ProductController extends Controller
             'picture' =>'required|max:2',
             'picture.*'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        if($request->hasfile('picture'))
+        foreach($request->file('picture') as $image)
         {
-           foreach($request->file('picture') as $image)
-           {
-                $featrued_new_name = time().rand(11111,99999).$image->getClientOriginalName();
-                $image->move('uploads/products/',$featrued_new_name);
-                $data_img[] = $featrued_new_name;
-           }
+            $featrued_new_name=$image->store('products');
+            $data_img[] = $featrued_new_name;
         }
         $product = Product::create([
             'name'          =>  $request->name,
@@ -149,16 +135,11 @@ class ProductController extends Controller
             'category_id' =>'required',
             'quantity' =>'required',
             'price' =>'required',
-            'picture' =>'max:2',
+            'picture' =>'max:2|min:1|required',
             'picture.*'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        if($request->has('picture')){
-            foreach( $request->file('picture') as $key=> $product_picture){
-                $this->handleUploadedImage($product_picture,$product,$key);
-
-            }
-        }
+        $this->handleUploadedImage($product,$request->file('picture'));
         $product->name        =  $request->name;
         $product->quantity    =  $request->quantity;
         $product->price       =  $request->price;
@@ -172,24 +153,17 @@ class ProductController extends Controller
         session()->flash('status', 'The product has been updated!');
         return redirect()->route('products');
     }
-    public function handleUploadedImage($image,$product,$key)
+    public function handleUploadedImage($product,$image)
     {
-        $featrued = $image;
-        $featrued_new_name = time().rand(11111,99999).$featrued->getClientOriginalName();
-        $featrued->move('uploads/products/',$featrued_new_name);
-        if($key==0){
-            //Delete Old Images On Update
-            $oldRows =  product_picture::where('product_id', $product->id);
-            foreach( $oldRows as $oldRow){
-                File::delete('uploads/products/'.$oldRow->picture);
-            }
-            $oldRows->delete();
+        foreach($image as  $key=>$img){
+            $new_name=$img->store("products");
+            Storage::delete(product_picture::where('product_id', $product->id)->skip($key)->take(1)->get()->first()->picture);
+            $old_name=product_picture::where('product_id', $product->id)->skip($key)->take(1)->get()->first()->update([
+                'product_id'    =>$product->id,
+                'picture'       =>$new_name
+            ]);
+
         }
-        // Update Info Product_picture Table
-        $product_image = product_picture::create([
-            'product_id'    =>$product->id,
-            'picture'       =>$featrued_new_name
-        ]);
     }
     /**
      * Remove the specified resource from storage.
@@ -200,6 +174,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        $related=product_picture::where('product_id', $id)->get();
+        foreach($related as  $key=>$img){
+            Storage::delete($img->picture);
+        }
+        product_picture::where('product_id', $id)->delete();
         $cart = session()->get('cart');
         if(isset($cart[$id])) {
             unset($cart[$id]);

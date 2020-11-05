@@ -29,6 +29,24 @@
                                             </span>
                                             @endif
                                         </p>
+                                        <p class="woocommerce-form-row">
+                                            <input class="woocommerce-Input input-text{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="{{ __('Your Phone') }}"
+                                             type="text" name="phone" value="{{ old('phone') }}"  autofocus>
+                                            @if ($errors->has('phone'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                            @endif
+                                        </p>
+                                        <p class="woocommerce-form-row">
+                                            <input class="woocommerce-Input input-text{{ $errors->has('location') ? ' is-invalid' : '' }}" placeholder="{{ __('Your Location') }}"
+                                             type="text" name="location" value="{{ old('location') }}"  autofocus>
+                                            @if ($errors->has('location'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('location') }}</strong>
+                                            </span>
+                                            @endif
+                                        </p>
 										<p class="woocommerce-form-row">
                                             <input class="woocommerce-Input input-text {{ $errors->has('password') ? ' is-invalid' : '' }}"
                                             name="password" placeholder="{{ __('Password') }}" type="password" value="{{ old('password') }}" >
@@ -70,4 +88,3 @@
 
 	</div>
     @include('users.layouts.footer.footer')
-
