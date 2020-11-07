@@ -34,7 +34,7 @@
                                         @else
                                             <option value="month">Last month</option>
                                         @endif
-                                        
+
                                         @if ($all==1)
                                             <option value="all" selected>All</option>
                                         @else
@@ -91,18 +91,18 @@
                                         </td>
                                         <td>
                                             @if ($status == 'pending')
-                                                {{ Carbon\Carbon::parse($order->pending)->format('h:i A') }}
+                                                <p>{{ Carbon\Carbon::parse($order->pending)->format('h:i A') }}</p>
                                             @elseif($status == 'delivered')
-                                                {{ Carbon\Carbon::parse($order->pending)->format('h:i A') }}
+                                                <p>{{ Carbon\Carbon::parse($order->pending)->format('h:i A') }}</p>
                                             @else
-                                                {{ $order->updated_at->format('h:i A') }}
+                                                <p>{{ $order->updated_at->format('h:i A') }}</p>
                                             @endif
                                         </td>
                                         <td>
                                             <p>{{ $order->time }}</p>
                                         </td>
                                         <td>
-                                            <p style="margin: 0">{{ $order->total }}$</p>
+                                            <p>{{ $order->total }} L.E</p>
                                         </td>
                                         <td>
                                             <p>{{ $order->location }}</p>

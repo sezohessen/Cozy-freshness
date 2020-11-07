@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row required">
-                                    <label for="Price" class="col-2 col-form-label">Price(Dollar)</label>
+                                    <label for="Price" class="col-2 col-form-label">Price(L.E)</label>
                                     <div class="col-4">
                                       <input type="number" name="price" min="0" step="1"  id="Price"
                                        class="form-control" placeholder="Price" value="{{$product->price}}" required>
@@ -86,6 +86,18 @@
                                       @if ($errors->has('discount'))
                                       <span class="invalid-feedback" role="alert">
                                           <strong>{{ $errors->first('discount') }}</strong>
+                                      </span>
+                                      @endif
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="code" class="col-2 col-form-label">Code</label>
+                                    <div class="col-4">
+                                      <input type="text" name="code" id="code" class="form-control" value="{{$product->code}}"  placeholder="Code">
+                                      <i class="fa fa-code"></i>
+                                      @if ($errors->has('code'))
+                                      <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $errors->first('code') }}</strong>
                                       </span>
                                       @endif
                                     </div>

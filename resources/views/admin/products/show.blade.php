@@ -37,7 +37,8 @@
                             </div>
                             <div class="card-body">
                                 <h1 class="card-title">{{$product->name}}</h1>
-                                <h3 class="red">Price : <span>{{$product->price}}$</span> </h3>
+                                <h3 class="red">Price : <span>{{$product->price}} L.E</span> </h3>
+                                <h3 class="red">Code : <span>{{$product->code}}</span> </h3>
                                 <strong class="red">Available Quantity : <span>{{$product->quantity}} pieces</span> </strong>
                                 <hr>
                                 <p class="card-text">{{$product->description}}</p>

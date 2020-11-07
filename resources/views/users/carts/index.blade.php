@@ -98,8 +98,8 @@
 										</td>
 										<td class="product-price" data-title="Price">
 											<span class="woocommerce-Price-amount amount">
-												<span class="woocommerce-Price-currencySymbol">$</span>
-												{{ $price }}
+                                                {{ $price }}
+                                                <span class="woocommerce-Price-currencySymbol">L.E</span>
 											</span>
 										</td>
 										<td class="product-quantity" data-title="Quantity">
@@ -121,8 +121,8 @@
 										</td>
 										<td class="product-subtotal" data-title="Total">
 											<span class="woocommerce-Price-amount amount">
-												<span class="woocommerce-Price-currencySymbol">$</span>
-												{{  $price * $cart_info['quantity'] }}
+                                                {{  $price * $cart_info['quantity'] }}
+                                                <span class="woocommerce-Price-currencySymbol">L.E</span>
 											</span>
 										</td>
                                     </tr>
@@ -150,8 +150,8 @@
 											<th>Total</th>
 											<td data-title="Total">
 												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">$</span>
-													{{ $total }}
+                                                    {{ $total }}
+                                                    <span class="woocommerce-Price-currencySymbol">L.E</span>
 												</span>
 											</td>
 										</tr>

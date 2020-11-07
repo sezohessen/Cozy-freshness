@@ -21,8 +21,8 @@ Auth::routes();
     Route::get('/', 'HomeController@index')->name('Ecommerce');
     Route::group(['prefix'=>"/"],function(){
         Route::get('shop', 'HomeController@shop')->name('shop');
-        Route::get('machine', 'HomeController@machine')->name('machine');
-        Route::get('shop/{id}/{slug}', 'HomeController@SpecificCateg')->name('shop.category');
+        Route::get('shop/machine/{clear?}', 'HomeController@machine')->name('machine');
+        Route::get('shop/{id}/{slug}/{mac?}', 'HomeController@SpecificCateg')->name('shop.category');
         Route::get('shop/product/{id}/{slug}', 'HomeController@product')->name('shop.product');
 /*
 |--------------------------------------
@@ -34,13 +34,18 @@ Auth::routes();
             Route::post('cart/add/{id}', 'CartController@store')->name('cart.add');
             Route::get('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
             Route::post('cart/update/{id}', 'CartController@update')->name('cart.update');
-            Route::get('machine', 'CartController@machine')->name('shop.machine');
-            Route::post('machine/add/{id}', 'CartController@machineStore')->name('machine.add');
-            Route::get('machine/remove/{id}', 'CartController@machineRemove')->name('machine.remove');
-            Route::post('machine/update/{id}', 'CartController@machineUpdate')->name('machine.update');
-        });
 
+        });
+        Route::group(['prefix'=>"machine"],function(){
+            Route::get('cart', 'CartController@machine')->name('machine.cart');
+            Route::get('info', 'CartController@machineInfo')->name('machine.info');
+            Route::post('add/{id}', 'CartController@machineStore')->name('machine.add');
+            Route::get('remove/{id}', 'CartController@machineRemove')->name('machine.remove');
+            Route::post('update/{id}', 'CartController@machineUpdate')->name('machine.update');
+        });
     });
+
+
 
 /*
 |--------------------------------------

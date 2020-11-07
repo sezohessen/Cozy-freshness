@@ -1833,7 +1833,8 @@ textarea:-moz-placeholder {
         font-weight: 600;
         font-size: 1.1rem;
      }
-        .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price del {
+        .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price del,
+        .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price ins{
           padding-right: 10px; }
         .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price .woocommerce-Price-currencySymbol {
           margin-right: -4px; }

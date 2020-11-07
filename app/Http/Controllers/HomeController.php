@@ -112,11 +112,11 @@ class HomeController extends Controller
         ));
     }
 
-    public function SpecificCateg(Request $Request,$id, $slug)
+    public function SpecificCateg(Request $Request,$id, $slug, $machine = 0)
     {
 
         $category       = Category::find($id);//If no matching model exist, it returns null.
-        $title = 'Novas | '.$category->name;
+        $title = 'Cozy | '.$category->name;
         if($category==NULL){
             return view('users.notfound');
         }
@@ -151,15 +151,24 @@ class HomeController extends Controller
         // -----------Search And Sort--------------
         $all_product        = Product::active($id);
         $product_picture    = product_picture::all();
-        $categories = $this->categories;
+        $categories         = $this->categories;
         $category_info      = Category::where('id',$id)
         ->get()
         ->first();
-        return view('users.categories.show',compact('title','categories','products','product_picture','all_product',
+        if($machine){
+            return view('users.machine.show',compact('title','categories','products','product_picture','all_product',
         'category_info'));
+        }else{
+            return view('users.categories.show',compact('title','categories','products','product_picture','all_product',
+        'category_info'));
+        }
+
     }
-    public function machine(Request $Request)
+    public function machine(Request $Request,$clear = 0)
     {
+        if($clear){
+            session()->forget('machine');//Clear seasion
+        }
         $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
         Setting::orderBy('id', 'DESC')->get()->first()->appname."| Machine" :
         "Cozy | Machine";

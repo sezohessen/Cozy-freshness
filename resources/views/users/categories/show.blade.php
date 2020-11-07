@@ -128,21 +128,21 @@
                                                             @if ($product->discount!=0||$product->discount!=NULL)
                                                                 <ins>
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
                                                                         {{$product->price - (($product->price * $product->discount)/100)}}
+                                                                        <span class="woocommerce-Price-currencySymbol">L.E</span>
                                                                     </span>
                                                                 </ins>
                                                                 <del>
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
                                                                         {{$product->price}}
+                                                                        <span class="woocommerce-Price-currencySymbol">L.E</span>
                                                                     </span>
                                                                 </del>
                                                             @else
                                                                 <ins>
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
                                                                         {{$product->price}}
+                                                                        <span class="woocommerce-Price-currencySymbol">L.E</span>
                                                                     </span>
                                                                 </ins>
                                                             @endif

@@ -82,7 +82,7 @@
                                         </li>
                                         @foreach ($categories as $category)
                                             <li class="cat-item cat-parent">
-                                                <a href="{{route('shop.category', ['id' => $category->id, 'slug' => str_slug($category->name)])}}" class="Category_name">
+                                                <a href="{{route('shop.category', ['id' => $category->id, 'slug' => str_slug($category->name),'mac'=> 1])}}" class="Category_name">
                                                     <span>{{$category->name}}</span>
                                                 </a>
                                                 <a href="#"><span>({{$category->products->where('active','1')->count()}})</span></a>
@@ -142,21 +142,21 @@
                                                             @if ($product->discount!=0||$product->discount!=NULL)
                                                                 <ins>
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
                                                                         {{$product->price - (($product->price * $product->discount)/100)}}
+                                                                        <span class="woocommerce-Price-currencySymbol">L.E</span>
                                                                     </span>
                                                                 </ins>
                                                                 <del>
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
                                                                         {{$product->price}}
+                                                                        <span class="woocommerce-Price-currencySymbol">L.E</span>
                                                                     </span>
                                                                 </del>
                                                             @else
                                                                 <ins>
                                                                     <span class="woocommerce-Price-amount amount">
-                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
                                                                         {{$product->price}}
+                                                                        <span class="woocommerce-Price-currencySymbol">L.E</span>
                                                                     </span>
                                                                 </ins>
                                                             @endif
@@ -197,4 +197,40 @@
 		</section>
 		<!-- End Shop Section -->
     </div>
- @include('users.layouts.footer.footer')
+    <a href="#" id="back-to-top"></a>
+    <!--  JS  -->
+    <!-- Jquery -->
+    <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{asset('vendor/bootrap/js/bootstrap.min.js')}}"></script>
+    <!-- Waypoints Library -->
+    <script src="{{asset('js/jquery.waypoints.min.js')}}"></script>
+    <!-- Owl Carousel 2 -->
+      <script src="{{asset('vendor/owl/js/owl.carousel.min.js')}}"></script>
+      <script src="{{asset('vendor/owl/js/OwlCarousel2Thumbs.min.js')}}"></script>
+      <!-- Slider Revolution core JavaScript files -->
+    <script src="{{asset('vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
+    <script src="{{asset('vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
+    <!-- Isotope Library-->
+    <script type="text/javascript" src="{{asset('js/isotope.pkgd.min.js')}}"></script>
+    <script src="{{asset('js/imagesloaded.pkgd.min.js')}}"></script>
+    <!-- Masonry Library -->
+    <script type="text/javascript" src="{{asset('js/jquery.masonry.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/masonry.pkgd.min.js')}}"></script>
+    <!-- fancybox-master Library -->
+    <script type="text/javascript" src="{{asset('vendor/fancybox-master/js/jquery.fancybox.min.js')}}"></script>
+    <!-- Google Map -->
+    <script src="{{asset('js/theme-map.js')}}"></script>
+    <!-- Countdown Library -->
+    <script src="{{asset('vendor/countdown/jquery.countdown.min.js')}}"></script>
+    <!-- Audio Library-->
+    <script src="{{asset('vendor/mejs/mediaelement-and-player.min.js')}}"></script>
+    <!-- noUiSlider Library -->
+    <script type="text/javascript" src="{{asset('vendor/nouislider/js/nouislider.js')}}"></script>
+    <!-- Form -->
+    <script src="{{asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('js/config-contact.js')}}"></script>
+    <!-- Main Js -->
+    <script src="{{asset('js/custom.js')}}"></script>
+    </body>
+    </html>

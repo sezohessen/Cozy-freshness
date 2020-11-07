@@ -52,7 +52,8 @@
                                                     <td class="product-total">
                                                         <span class="woocommerce-Price-amount amount">
                                                             <span class="woocommerce-Price-currencySymbol">
-                                                                ${{  $price * $cart_info['quantity'] }}
+                                                                {{  $price * $cart_info['quantity'] }}
+                                                                <span class="woocommerce-Price-currencySymbol">L.E</span>
                                                             </span>
                                                         </span>
                                                     </td>
@@ -67,7 +68,7 @@
 															<span class="review-total-title">Total</span>
 															<p>
 																<span class="woocommerce-Price-amount amount">
-																	<span class="woocommerce-Price-currencySymbol">${{ $total }}</span>
+																	<span class="woocommerce-Price-currencySymbol">{{ $total }} L.E</span>
 																</span>
 															</p>
 														</li>

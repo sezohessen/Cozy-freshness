@@ -43,15 +43,6 @@ class CartController extends Controller
         $setting=Setting::orderBy('id', 'DESC')->get()->first();
         return view('users.carts.index',compact('title','categories','setting'));
     }
-    public function machine()
-    {
-
-        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
-        Setting::orderBy('id', 'DESC')->get()->first()->appname."| Cart" :
-        "Cozy | Machine Cart";
-        $setting=Setting::orderBy('id', 'DESC')->get()->first();
-        return view('users.machine.index',compact('title','setting'));
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -89,26 +80,6 @@ class CartController extends Controller
         session()->put('cart', $cart);
         return redirect()->route('shop.cart');
     }
-    public function machineStore(Request $request,$id)
-    {
-        $product    = Product::find($id);
-        $machine = session()->get('machine');
-        if(isset($machine[$id])) {
-            if($machine[$id]['quantity'] < $product->quantity){
-                $machine[$id]['quantity']++;
-            }else{
-                session()->flash('status', 'Product '.$product->name.' has only '.$product->quantity.' quantity');
-                return redirect()->route('shop.machine');
-            }
-            session()->put('machine', $machine);
-            return redirect()->route('shop.machine');
-        }
-        $machine[$id] = [
-            "quantity" => $request->quantity,
-        ];
-        session()->put('machine', $machine);
-        return redirect()->route('shop.machine');
-    }
 
     /**
      * Display the specified resource.
@@ -139,24 +110,6 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function machineUpdate(Request $request, $id)
-    {
-        if($id and $request->quantity)
-        {
-            $machine = session()->get('machine');
-            $product = Product::find($id);
-            if(!$product->count()){
-                session()->flash('notfound', 'Sorry product not availabe right now ');
-                return redirect()->route('shop.machine');
-            }
-            $machine[$id]["quantity"] = $request->quantity;
-
-            session()->put('machine', $machine);
-
-            session()->flash('success', 'Cart updated successfully');
-            return redirect()->route('shop.machine');
-        }
-    }
     public function update(Request $request, $id)
     {
         if($id and $request->quantity)
@@ -181,17 +134,6 @@ class CartController extends Controller
         if(isset($cart[$id])) {
             unset($cart[$id]);
             session()->put('cart', $cart);
-        }
-        session()->flash('status', 'Product removed successfully');
-        return redirect()->back();
-
-    }
-    public function machineRemove($id)
-    {
-        $machine = session()->get('machine');
-        if(isset($machine[$id])) {
-            unset($machine[$id]);
-            session()->put('machine', $machine);
         }
         session()->flash('status', 'Product removed successfully');
         return redirect()->back();
@@ -289,4 +231,75 @@ class CartController extends Controller
             return redirect()->route('shop');
         }
     }
+    /* Machine Cart Controller */
+    public function machine()
+    {
+        $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
+        Setting::orderBy('id', 'DESC')->get()->first()->appname."| Cart" :
+        "Cozy | Machine Cart";
+        return view('users.machine.index',compact('title'));
+    }
+
+    public function machineInfo()
+    {
+        $title="Cozy | Products Code";
+        if(session('machine')){
+            return view('users.machine.info',compact('title'));
+        }else{
+            return redirect()->route('machine');
+        }
+    }
+    public function machineStore(Request $request,$id)
+    {
+        $product    = Product::find($id);
+        $machine    = session()->get('machine');
+        if(isset($machine[$id])) {
+            if($machine[$id]['quantity'] < $product->quantity){
+                $machine[$id]['quantity']++;
+            }else{
+                session()->flash('status', 'Product '.$product->name.' has only '.$product->quantity.' quantity');
+                return redirect()->route('machine.cart');
+            }
+            session()->put('machine', $machine);
+            return redirect()->route('machine.cart');
+        }
+        $machine[$id] = [
+            "quantity" => $request->quantity,
+        ];
+        session()->put('machine', $machine);
+        return redirect()->route('machine.cart');
+    }
+
+
+    public function machineUpdate(Request $request, $id)
+    {
+        if($id and $request->quantity)
+        {
+            $machine = session()->get('machine');
+            $product = Product::find($id);
+            if(!$product->count()){
+                session()->flash('notfound', 'Sorry product not availabe right now ');
+                return redirect()->route('machine.cart');
+            }
+            $machine[$id]["quantity"] = $request->quantity;
+
+            session()->put('machine', $machine);
+
+            session()->flash('success', 'Cart updated successfully');
+            return redirect()->route('machine.cart');
+        }
+    }
+
+    public function machineRemove($id)
+    {
+        $machine = session()->get('machine');
+        if(isset($machine[$id])) {
+            unset($machine[$id]);
+            session()->put('machine', $machine);
+        }
+        session()->flash('status', 'Product removed successfully');
+        return redirect()->back();
+
+    }
 }
+

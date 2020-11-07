@@ -36,7 +36,7 @@
                                 <div class="card-header"> <a href="{{route('products.show',$product->id)}}">{{$product->name}}</a></div>
                                 <div class="card-body text-dark">
                                     <img src="{{ Storage::url($product->pictures[0]->picture)}}" alt="{{$product->pictures[0]->picture}}" class="img-fluid img-thumbnail">
-                                    <h5 class="card-title"><strong>Price :{{$product->price}}$</strong></h5>
+                                    <h5 class="card-title"><strong>Price :{{$product->price}} L.E</strong></h5>
                                     <p class="card-text">{{$product->description}}</p>
                                 </div>
                                 <a href="{{route('products.show',$product->id)}}" class="btn btn-primary">More</a>

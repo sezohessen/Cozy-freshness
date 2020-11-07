@@ -79,9 +79,13 @@
                                 </div>
                                 <div class="card-body text-dark">
                                     <img src="{{ Storage::url($order->product->pictures->first()->picture)}}" alt="{{$order->product->name}}" class="img-fluid img-thumbnail">
-                                    <h5 class="card-title">Price One unit :<strong>{{$order->price}}$</strong></h5>
+                                    <h5 class="card-title">Price One unit :<strong>{{$order->price}} L.E</strong></h5>
                                     <h5 class="card-title">Discount :<strong>{{$order->discount}}%</strong></h5>
-                                    <h4 class="card-title">Final Price :<strong>{{($order->price - (($order->price * $order->discount)/100))* $order->quantity}}$</strong></h4>
+                                    <h4 class="card-title">Final Price :
+                                        <strong>
+                                        {{($order->price - (($order->price * $order->discount)/100))* $order->quantity}} L.E
+                                        </strong>
+                                    </h4>
                                     <p class="card-text">{{$order->product->description}}</p>
                                 </div>
                                 <a href="{{route('products.show',$order->product->id)}}" class="btn btn-primary">More</a>

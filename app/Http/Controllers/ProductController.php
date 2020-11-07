@@ -71,6 +71,7 @@ class ProductController extends Controller
             $product->save();
         }
         $this->CreateOrIgnore($product,$request->discount,'discount');
+        $this->CreateOrIgnore($product,$request->code,'code');
         foreach ($data_img as $data){
             $product_image = product_picture::create([
                 'product_id'    =>$product->id,
@@ -146,6 +147,7 @@ class ProductController extends Controller
         $product->category_id =  $request->category_id;
         $product->save();
         $this->CreateOrIgnore($product,$request->discount,'discount');
+        $this->CreateOrIgnore($product,$request->code,'code');
         if($request->description){
             $product->description       =  $request->description;
             $product->save();
@@ -180,9 +182,14 @@ class ProductController extends Controller
         }
         product_picture::where('product_id', $id)->delete();
         $cart = session()->get('cart');
+        $machine = session()->get('machine');
         if(isset($cart[$id])) {
             unset($cart[$id]);
             session()->put('cart', $cart);
+        }
+        if(isset($machine[$id])) {
+            unset($machine[$id]);
+            session()->put('machine', $machine);
         }
         $product->delete($id);
         session()->flash('status', 'The product has been deleted!');

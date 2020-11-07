@@ -101,6 +101,7 @@
                                 <tr>
                                     <th class="product-remove"></th>
                                     <th class="product-name">Product</th>
+                                    <th class="product-name">Code</th>
                                     <th class="product-price">Price</th>
                                     <th class="product-quantity">Quantity</th>
                                     <th class="product-subtotal">Total</th>
@@ -139,26 +140,17 @@
                                     </td>
                                     <td class="product-price" data-title="Price">
                                         <span class="woocommerce-Price-amount amount">
+                                            {{ $product->code }}
+                                        </span>
+                                    </td>
+                                    <td class="product-price" data-title="Price">
+                                        <span class="woocommerce-Price-amount amount">
                                             {{ $price }}
                                             <span class="woocommerce-Price-currencySymbol">L.E</span>
                                         </span>
                                     </td>
                                     <td class="product-quantity" data-title="Quantity">
-                                        <div class="quantity form-group" style="width:60px">
-                                            <form action="{{ route('machine.update',['id'=>$id]) }}" method="POST">
-                                                @csrf
-                                                <select class="custom-select mr-sm-2" onchange="this.form.submit()"
-                                                name="quantity"  style="cursor: pointer" >
-                                                    @for ($i = 1; $i <= $product->quantity; $i++)
-                                                        @if ($cart_info['quantity']==$i)
-                                                            <option value="{{ $i }}" selected>{{ $i }}</option>
-                                                        @else
-                                                            <option value="{{ $i }}">{{ $i }}</option>
-                                                        @endif
-                                                    @endfor
-                                                </select>
-                                            </form>
-                                        </div>
+                                        <span>{{ $cart_info['quantity'] }}</span>
                                     </td>
                                     <td class="product-subtotal" data-title="Total">
                                         <span class="woocommerce-Price-amount amount">
@@ -168,17 +160,6 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                <tr>
-                                    <td colspan="6" class="actions">
-                                        <div class="coupon">
-                                            <a href="{{route('machine')}}" class="button au-btn btn-small">Continue shopping <span><i class="zmdi zmdi-arrow-right"></i></span></a>
-                                        </div>
-                                        {{-- <div class="action-btn">
-                                            <input type="submit" class="button au-btn btn-small" name="update_cart" value="Update Cart">
-                                            <span><i class="zmdi zmdi-arrow-right"></i></span>
-                                        </div> --}}
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -199,7 +180,7 @@
                                 </tbody>
                             </table>
                             <div class="wc-proceed-to-checkout">
-                                <a href="{{ route('machine.info') }}" class="button au-btn btn-small">Show Items Code <span><i class="zmdi zmdi-arrow-right"></i></span></a>
+                                <a href="{{ route('machine',1)}}" class="button au-btn btn-small">Done <span><i class="zmdi zmdi-arrow-right"></i></span></a>
                             </div>
                         </div>
                     </div>
