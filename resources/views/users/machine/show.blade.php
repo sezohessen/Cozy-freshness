@@ -60,7 +60,7 @@
 				<div class="featured-content woocommerce" style="padding:20px">
 					<div class="row">
 						<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-							<div class="widget-area">
+							<div class="widget-area" style="padding-bottom: 20px">
 								<!-- Search -->
 								<div class="widget widget_search">
                                     <form class="search-form" method="get" role="search">
@@ -88,7 +88,22 @@
                                                 <a href="#"><span>({{$category->products->where('active','1')->count()}})</span></a>
                                             </li>
                                         @endforeach
-									</ul>
+                                    </ul>
+                                    <hr>
+                                    <div class="card">
+                                        <div class="card-body">
+                                         <p>
+                                            <strong>- For Cold Drinks :</strong>
+                                            <br>
+                                            Click on ... then write code ,,, and buy it ,,,,,
+                                         </p>
+                                         <p>
+                                            <strong>- For Hot Drinks :</strong>
+                                            <br>
+                                            Click on ... then write code ,,, and buy it ,,,,,
+                                         </p>
+                                        </div>
+                                    </div>
 								</div>
 								<!-- Banner -->
 							</div>
@@ -110,7 +125,7 @@
 									</form>
                                 </div>
 								<div class="row">
-                                    @foreach ($products as $product)
+                                    @foreach ($products as $key => $product)
                                     <!-- Product -->
                                     <div class="col-md-4 col-lg-3">
                                         <div class="product type-product">
@@ -164,13 +179,33 @@
                                                         @if ($product->quantity==0||$product->quantity==NULL)
                                                             <strong class="out-stock">Out of stock</strong>
                                                         @else
-                                                            <div class="button add_to_cart_button">
-                                                                <form method="POST" action="{{ route('machine.add',['id' => $product->id]) }}">
-                                                                    @csrf
-                                                                    <input type="number" name="quantity" id="quantity" value="1" hidden>
-                                                                    <input type="machine" name="machine" id="machine" value="machine" hidden>
-                                                                    <button type="submit" class="btn btn-dark">Add to Cart</button>
-                                                                </form>
+                                                            <!-- Button trigger modal -->
+                                                            <div class="prompt-buy">
+                                                                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal-{{$key}}">Buy</button>
+                                                            </div>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="exampleModal-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel"> {{ $product->name }}</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Code : <strong>{{ $product->code }}</strong></p>
+                                                                        <p>Price :
+                                                                            <span style="color:#ea005b;">
+                                                                                {{$product->price - (($product->price * $product->discount)/100)}} L.E
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
                                                             </div>
                                                         @endif
                                                     </div>
@@ -187,7 +222,6 @@
 							<div class="navigation pagination">
 								<div class="page-numbers">
                                     {{ $products->appends(Request::only(['search', 'order', 'page']))->links() }}
-
 								</div>
 							</div>
 						</div>

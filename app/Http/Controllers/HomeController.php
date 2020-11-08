@@ -164,11 +164,8 @@ class HomeController extends Controller
         }
 
     }
-    public function machine(Request $Request,$clear = 0)
+    public function machine(Request $Request)
     {
-        if($clear){
-            session()->forget('machine');//Clear seasion
-        }
         $title=!empty(Setting::orderBy('id', 'DESC')->get()->first())?
         Setting::orderBy('id', 'DESC')->get()->first()->appname."| Machine" :
         "Cozy | Machine";

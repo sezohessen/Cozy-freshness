@@ -491,6 +491,9 @@ ul {
     text-align: left;
     font-size: 16px;
 }
+.woocommerce .modal .modal-dialog{
+    width: 50%;
+}
 /*New*/
 /* Back To Top Button */
 #back-to-top {
@@ -1838,6 +1841,11 @@ textarea:-moz-placeholder {
           padding-right: 10px; }
         .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image .price .woocommerce-Price-currencySymbol {
           margin-right: -4px; }
+          .featured-hp-1 .content-area .prompt-buy button{
+            display: block;
+            margin: 10px 0px auto;
+            width: 100%;
+          }
       .featured-hp-1 .content-area .woocommerce-LoopProduct-link .product-image:hover {
         border: 1px solid #e5e5e5;
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
