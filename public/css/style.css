@@ -492,6 +492,21 @@ ul {
     font-size: 16px;
 }
 .woocommerce .modal .modal-dialog{
+    width: 70%;
+}
+.woocommerce .modal .modal-dialog .mac-img img{
+    max-height: 350px;
+    margin: 0 auto;
+    display: block;
+}
+.woocommerce .modal .modal-dialog .warning-msg{
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px 3px 3px 3px;
+    color: #9F6000;
+    background-color: #FEEFB3;
+    position: absolute;
+    left: 30px;
     width: 50%;
 }
 /*New*/

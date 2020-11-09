@@ -72,6 +72,7 @@ class ProductController extends Controller
         }
         $this->CreateOrIgnore($product,$request->discount,'discount');
         $this->CreateOrIgnore($product,$request->code,'code');
+        $this->CreateOrIgnore($product,$request->type,'type');
         foreach ($data_img as $data){
             $product_image = product_picture::create([
                 'product_id'    =>$product->id,
@@ -148,6 +149,7 @@ class ProductController extends Controller
         $product->save();
         $this->CreateOrIgnore($product,$request->discount,'discount');
         $this->CreateOrIgnore($product,$request->code,'code');
+        $this->CreateOrIgnore($product,$request->type,'type');
         if($request->description){
             $product->description       =  $request->description;
             $product->save();

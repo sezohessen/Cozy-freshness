@@ -27,7 +27,8 @@
 	<link rel="stylesheet" href="{{asset('vendor/owl/css/owl.theme.default.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/owl/css/animate.css')}}">
     {{-- Fontawesome --}}
-    <link rel="stylesheet" href="{{asset('vendor/fontawesome/fontawesome.min.css')}}"/>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <!-- Slider Revolution CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/settings.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('vendor/revolution/css/layers.css')}}">
@@ -90,20 +91,6 @@
                                         @endforeach
                                     </ul>
                                     <hr>
-                                    <div class="card">
-                                        <div class="card-body">
-                                         <p>
-                                            <strong>- For Cold Drinks :</strong>
-                                            <br>
-                                            Click on ... then write code ,,, and buy it ,,,,,
-                                         </p>
-                                         <p>
-                                            <strong>- For Hot Drinks :</strong>
-                                            <br>
-                                            Click on ... then write code ,,, and buy it ,,,,,
-                                         </p>
-                                        </div>
-                                    </div>
 								</div>
 								<!-- Banner -->
 							</div>
@@ -194,14 +181,56 @@
                                                                     </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <p>Code : <strong>{{ $product->code }}</strong></p>
-                                                                        <p>Price :
-                                                                            <span style="color:#ea005b;">
-                                                                                {{$product->price - (($product->price * $product->discount)/100)}} L.E
-                                                                            </span>
-                                                                        </p>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <p>Code : <strong>{{ $product->code }}</strong></p>
+                                                                                <p>Price :
+                                                                                    <span style="color:#ea005b;">
+                                                                                        {{$product->price - (($product->price * $product->discount)/100)}} L.E
+                                                                                    </span>
+                                                                                </p>
+                                                                                <hr>
+                                                                                <div class="card">
+                                                                                    <div class="card-body">
+                                                                                        @if ($product->type=='cold')
+                                                                                            <p>
+                                                                                                <strong><i class="fa fa-arrow-right" ></i> Cold Drinks :</strong>
+                                                                                                <br>
+                                                                                                Click on ... then write code ,,, and buy it ,,,,,
+                                                                                            </p>
+                                                                                        @elseif($product->type=='hot')
+                                                                                            <p>
+                                                                                            <strong><i class="fa fa-arrow-right" ></i> Hot Drinks :</strong>
+                                                                                            <br>
+                                                                                            Click on ... then write code ,,, and buy it ,,,,,
+                                                                                            </p>
+                                                                                        @else
+                                                                                            <p>
+                                                                                                <strong><i class="fa fa-arrow-right" ></i> For Cold Drinks :</strong>
+                                                                                                <br>
+                                                                                                Click on ... then write code ,,, and buy it ,,,,,
+                                                                                            </p>
+                                                                                            <hr>
+                                                                                            <p>
+                                                                                            <strong><i class="fa fa-arrow-right" ></i> For Hot Drinks :</strong>
+                                                                                            <br>
+                                                                                            Click on ... then write code ,,, and buy it ,,,,,
+                                                                                            </p>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6 mac-img">
+                                                                                <img src="{{ asset('images/machine1.png') }}" alt="Img">
+                                                                            </div>
+                                                                        </div>
+
                                                                     </div>
                                                                     <div class="modal-footer">
+                                                                        <div class="warning-msg">
+                                                                            <i class="fa fa-warning"></i>
+                                                                            This is a warning message.
+                                                                        </div>
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                     </div>
                                                                 </div>

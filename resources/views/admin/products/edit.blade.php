@@ -78,6 +78,26 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="type" class="col-2 col-form-label">Selet type</label>
+                                    <div class="col-4">
+                                        <select class="form-control" id="type" name="type" required>
+                                            @if ($product->type!=NULL&&$product->type=='hot')
+                                                <option value="hot" selected>Hot Drink</option>
+                                                <option value="cold">Cold Drink</option>
+                                            @else
+                                                @if ($product->type!=NULL)
+                                                    <option value="hot">Hot Drink</option>
+                                                    <option value="cold" selected>Cold Drink</option>
+                                                @else
+                                                    <option disabled selected value> -- Select An Option -- </option>
+                                                    <option value="hot">Hot Drink</option>
+                                                    <option value="cold">Cold Drink</option>
+                                                @endif
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="Discount" class="col-2 col-form-label">Discount(%)</label>
                                     <div class="col-4">
                                       <input type="number" name="discount" min="0" max="100" step="1"

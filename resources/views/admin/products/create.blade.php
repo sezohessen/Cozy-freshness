@@ -45,7 +45,6 @@
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
                                         </select>
-
                                     </div>
                                 </div>
                                 <div class="form-group row required">
@@ -66,6 +65,16 @@
                                       @if ($errors->has('price'))
                                       <small class="badge badge-danger">{{$errors->first('price')}}</small>
                                       @endif
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="type" class="col-2 col-form-label">Selet type</label>
+                                    <div class="col-4">
+                                        <select class="form-control" id="type" name="type" required>
+                                            <option disabled selected value> -- Select An Option -- </option>
+                                            <option value="hot">Hot Drink</option>
+                                            <option value="cold">Cold Drink</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
